@@ -1,74 +1,127 @@
 package com.simple.banking.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Generated;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
-@Data
+import java.util.List;
+
 @Entity
-@Table(name = "Customer")
+@SequenceGenerator(name = "port_gen", sequenceName = "port_gen",  initialValue = 1000000000)
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String accountNumber;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "port_gen")
+    private Long accountNumber;
+
     private String name;
+
+    @NotNull
+    @Pattern(regexp="(^$|[0-9]{10})")
+    private String contact;
+
+    @Email
+    @NotNull
     private String emailId;
+    @NotNull
     private String password;
-    private Double currentBalance;
 
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
+    @NotNull
+    @Pattern(regexp="[A-Z]{5}[0-9]{4}[A-Z]{1}")
+    private String panNumber;
+    @NotNull
+    @Pattern(regexp="(^$|[0-9]{12})")
+    private String aadharNumber;
+    private String address;
+    @Column(columnDefinition="Decimal(10,2) default '0.00'")
+    private double currentbalance;
 
     public String getPassword() {
         return password;
-    }
-
-    public Double getCurrentBalance() {
-        return currentBalance;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setCurrentBalance(Double currentBalance) {
-        this.currentBalance = currentBalance;
+    public Long getAccountNumber() {
+        return accountNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "accountNumber=" + accountNumber +
-                ", name='" + name + '\'' +
-                ", emailId='" + emailId + '\'' +
-                ", password='" + password + '\'' +
-                ", currentBalance=" + currentBalance +
-                '}';
+    public void setAccountNumber(Long accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public @Email @NotNull String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(@Email @NotNull String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getPanNumber() {
+        return panNumber;
+    }
+
+    public void setPanNumber(String panNumber) {
+        this.panNumber = panNumber;
+    }
+
+    public String getAadharNumber() {
+        return aadharNumber;
+    }
+
+    public void setAadharNumber(String aadharNumber) {
+        this.aadharNumber = aadharNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public double getCurrentbalance() {
+        return currentbalance;
+    }
+
+    public void setCurrentbalance(double currentbalance) {
+        this.currentbalance = currentbalance;
+    }
+
+    public Customer() {
+    }
+
+    public Customer(String address, Long accountNumber, String name, String contact, String emailId, String password, String panNumber, String aadharNumber, double currentbalance) {
+        this.address = address;
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.contact = contact;
+        this.emailId = emailId;
+        this.password = password;
+        this.panNumber = panNumber;
+        this.aadharNumber = aadharNumber;
+        this.currentbalance = currentbalance;
+    }
 }

@@ -3,12 +3,15 @@ package com.simple.banking.controller;
 import com.simple.banking.model.ApiResponse;
 import com.simple.banking.model.Customer;
 import com.simple.banking.model.LoginRequestDTO;
+import com.simple.banking.model.Transaction;
+import com.simple.banking.service.BankingService;
 import com.simple.banking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +20,14 @@ public class BankingController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private BankingService bankingService;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Customer customer) {
+        return customerService.register(customer);
+    }
 
     //Customer Login
     @PostMapping("/login")
@@ -30,7 +41,7 @@ public class BankingController {
         }
 
         if (customerDetail.getPassword().equals(loginRequestDTO.getPassword())) {
-            ApiResponse response = new ApiResponse("success", HttpStatus.OK.value(), "Login successful", customerDetail.getAccountNumber());
+            ApiResponse response = new ApiResponse("success", HttpStatus.OK.value(), "Login successful", customerDetail.getAccountNumber().toString());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             ApiResponse response = new ApiResponse("failure", HttpStatus.UNAUTHORIZED.value(), "Invalid Credentials : Please check you email and password.", "");
@@ -42,22 +53,25 @@ public class BankingController {
 
     //Money Withdraw
     @PostMapping("/withdraw")
-        public ResponseEntity<String> withdrawTrans(@RequestParam String accNumber, @RequestParam Double amount){
-        String response = customerService.withdraw(accNumber,amount);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> withdraw(@RequestParam Long customerId,@RequestParam Double amount){
+        return bankingService.withdraw(customerId,amount);
     }
 
-    //Money Deposit
     @PostMapping("/deposit")
-    public ResponseEntity<String> depositTrans(@RequestParam String accNumber, @RequestParam Double amount){
-        String response = customerService.deposit(accNumber,amount);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> deposit(@RequestParam Long customerId,@RequestParam Double amount){
+        return bankingService.deposit(customerId,amount);
+
+    }
+
+    @GetMapping("/history")
+    public ResponseEntity<List<Transaction>> history(@RequestParam Long customerId){
+        return ResponseEntity.ok(bankingService.getTransactionHistory(customerId));
     }
 
     //Balance Inquiry
     @GetMapping("/balance/{accountNumber}")
-    public ResponseEntity<String> getBalance(@PathVariable String accountNumber){
+    public ResponseEntity<String> getBalance(@PathVariable Long accountNumber){
        Optional<Customer> customer = customerService.getCustomer(accountNumber);
-        return customer.map(value -> ResponseEntity.ok("Current Balance is : " + value.getCurrentBalance())).orElseGet(() -> ResponseEntity.status(404).body("Account Not Found"));
+        return customer.map(value -> ResponseEntity.ok("Current Balance is : " + value.getCurrentbalance())).orElseGet(() -> ResponseEntity.status(404).body("Account Not Found"));
     }
 }
