@@ -6,9 +6,11 @@ import com.simple.banking.model.LoginRequestDTO;
 import com.simple.banking.model.Transaction;
 import com.simple.banking.service.BankingService;
 import com.simple.banking.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class BankingController {
     private BankingService bankingService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Customer customer) {
+    public ResponseEntity<?> register(@Validated @RequestBody Customer customer) {
         return customerService.register(customer);
     }
 
@@ -64,8 +66,8 @@ public class BankingController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity<List<Transaction>> history(@RequestParam Long customerId){
-        return ResponseEntity.ok(bankingService.getTransactionHistory(customerId));
+    public ResponseEntity<?> history(@RequestParam Long customerId){
+        return bankingService.getTransactionHistory(customerId);
     }
 
     //Balance Inquiry

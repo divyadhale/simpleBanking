@@ -5,15 +5,20 @@ import com.simple.banking.model.Customer;
 import com.simple.banking.model.Transaction;
 import com.simple.banking.repository.CustomerRepository;
 import com.simple.banking.repository.TransactionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BankingService {
+    private static final Logger logger = LoggerFactory.getLogger(BankingService.class);
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -62,9 +67,17 @@ public class BankingService {
         return  ResponseEntity.ok().body("Withdrawl Success");
     }
 
-    public List<Transaction> getTransactionHistory(Long customerId) {
-        Customer customer = customerRepository.findById(customerId).orElseThrow();
-        return transactionRepository.findByCustomer(customer);
+    public ResponseEntity<?> getTransactionHistory(Long customerId) {
+        try {
+            Optional<Customer> customer = customerRepository.findById(customerId);
+            if (customer.isPresent()) {
+                return ResponseEntity.ok(transactionRepository.findByCustomer(customer.get()));
+            } else {
+                return ResponseEntity.badRequest().body("User with id " + customerId + " not present");
+            }
+        }catch (Exception ex){
+            return ResponseEntity.internalServerError().body("An error Occurred . Please try again");
+        }
     }
 
     public Double checkBalance(Long customerId) {

@@ -4,6 +4,7 @@ package com.simple.banking.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
@@ -16,23 +17,24 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "port_gen")
     private Long accountNumber;
 
-    private String name;
+    private String firstName;
+    private String lastName;
 
-    @NotNull
-    @Pattern(regexp="(^$|[0-9]{10})")
+    @NotNull(message = "Contact Number is required.")
+    @Pattern(regexp="(^$|[0-9]{10})",message = "Contact is invalid.")
     private String contact;
 
     @Email
-    @NotNull
+    @NotNull(message = "Email is required.")
     private String emailId;
-    @NotNull
+    @NotNull(message = "Password is required.")
     private String password;
 
-    @NotNull
-    @Pattern(regexp="[A-Z]{5}[0-9]{4}[A-Z]{1}")
+    @NotNull(message = "PAN is required.")
+    @Pattern(regexp="[A-Z]{5}[0-9]{4}[A-Z]{1}",message = "PAN number is invalid.")
     private String panNumber;
-    @NotNull
-    @Pattern(regexp="(^$|[0-9]{12})")
+    @NotNull(message = "AAdhar is required.")
+    @Pattern(regexp="(^$|[0-9]{12})",message = "Aadhar is invalid.")
     private String aadharNumber;
     private String address;
     @Column(columnDefinition="Decimal(10,2) default '0.00'")
@@ -54,12 +56,20 @@ public class Customer {
         this.accountNumber = accountNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getContact() {
@@ -113,15 +123,16 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String address, Long accountNumber, String name, String contact, String emailId, String password, String panNumber, String aadharNumber, double currentbalance) {
-        this.address = address;
+    public Customer(String aadharNumber, Long accountNumber, String firstName, String lastName, String contact, String emailId, String password, String panNumber, String address, double currentbalance) {
+        this.aadharNumber = aadharNumber;
         this.accountNumber = accountNumber;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.contact = contact;
         this.emailId = emailId;
         this.password = password;
         this.panNumber = panNumber;
-        this.aadharNumber = aadharNumber;
+        this.address = address;
         this.currentbalance = currentbalance;
     }
 }
