@@ -2,13 +2,19 @@ package com.simple.banking.service;
 
 import com.simple.banking.model.Customer;
 import com.simple.banking.repository.CustomerRepository;
+import jakarta.validation.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class CustomerService {
+    private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -19,37 +25,21 @@ public class CustomerService {
         return customer.get();
     }
 
-
-    //For withdraw
-    public String withdraw(String accNumber, Double amount){
-        Optional<Customer> customerDetails = customerRepository.findById(accNumber);
-        if(customerDetails.isPresent()){
-            Customer customer = customerDetails.get();
-           if(customer.getCurrentBalance()>=amount){
-               customer.setCurrentBalance(customer.getCurrentBalance()-amount);
-               customerRepository.save(customer);
-               return "Withdrawal successful! Current Balance is "+customer.getCurrentBalance();
-           }else{
-               return "Insufficient Balance";
-           }
-        }else{
-            return "Account not found!";
+    public ResponseEntity<?> register(Customer customer) {
+        //customer.setPassword(passwordEncoder.encode(password));
+        try {
+            Customer user = customerRepository.save(customer);
+            return ResponseEntity.ok(user);
+        } catch(ConstraintViolationException cex){
+            logger.error("Constraint Violation ",cex);
+            return ResponseEntity.badRequest().body("Constraint Violation "+cex.getConstraintViolations().stream());
+        } catch(Exception ex){
+            logger.error("error occured ",ex);
+            return ResponseEntity.badRequest().body("error occured "+ex.getMessage());
         }
     }
 
-    public String deposit(String accNumber, Double amount){
-        Optional<Customer> customerDetails = customerRepository.findById(accNumber);
-        if(customerDetails.isPresent()){
-            Customer customer = customerDetails.get();
-                customer.setCurrentBalance(customer.getCurrentBalance() + amount);
-                customerRepository.save(customer);
-                return "Deposit successful! Current Balance is "+customer.getCurrentBalance();
-        }else{
-            return "Account not found!";
-        }
-    }
-
-    public Optional<Customer> getCustomer(String accountNumber){
+    public Optional<Customer> getCustomer(Long accountNumber){
         return customerRepository.findById(accountNumber);
     }
 
