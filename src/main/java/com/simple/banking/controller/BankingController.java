@@ -1,11 +1,9 @@
 package com.simple.banking.controller;
 
-import com.simple.banking.model.ApiResponse;
-import com.simple.banking.model.Customer;
-import com.simple.banking.model.LoginRequestDTO;
-import com.simple.banking.model.Transaction;
+import com.simple.banking.model.*;
 import com.simple.banking.service.BankingService;
 import com.simple.banking.service.CustomerService;
+import com.simple.banking.service.SmsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/simple/banking")
@@ -51,7 +48,10 @@ public class BankingController {
         }
     }
 
-
+    @PostMapping("/doTransaction")
+    public ResponseEntity<?> doTransaction(@RequestBody TransactionDto transactionDto){
+        return bankingService.doTransaction(transactionDto);
+    }
 
     //Money Withdraw
     @PostMapping("/withdraw")
