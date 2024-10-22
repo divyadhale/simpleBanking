@@ -72,7 +72,17 @@ public class BankingService {
                     action = "withdrawn from";
                     amount = transaction.getWithdraw();
                 }
-                sendSMS(customer.getContact(),"Rs."+amount+" "+action+" your account ending with "+customer.getAccountNumber().toString().substring(6)+" Current Account Balance is Rs."+customer.getCurrentbalance());
+                try {
+                    sendSMS(customer.getContact(),"Rs."+amount+" "+action+" your account ending with "+customer.getAccountNumber().toString().substring(6)+" Current Account Balance is Rs."+customer.getCurrentbalance());
+                }catch (Exception e) {
+
+                }
+                try{
+                    sendMail(customer.getEmailId(), "Rs."+amount+" "+action+" your account ending with "+customer.getAccountNumber().toString().substring(6)+" Current Account Balance is Rs."+customer.getCurrentbalance(), "Transaction Alert!");
+                } catch (Exception e){
+
+                }
+
             } catch (Exception ex){
 
             }
@@ -97,9 +107,23 @@ public class BankingService {
             transactionOtp.setTimestamp(LocalDateTime.now());
             transactionOtp.setOtp(verificationCode);
             transactionOtpRepository.save(transactionOtp);
-            sendSMS(customer.getContact(),verificationCode+" is your OTP to transfer Rs."+amount);
-            //sendMail(customer.getEmailId(), verificationCode+" is your OTP to transfer Rs."+amount);
-            return ResponseEntity.ok("Verification code sent to " + customer.getContact());
+            String otpSentMessage ="";
+            try {
+                sendSMS(customer.getContact(), verificationCode + " is your OTP to transfer Rs." + amount);
+                otpSentMessage+=("Verification code sent to " + customer.getContact().charAt(0)+"XXXXXX"+customer.getContact().substring(6));
+            }catch (Exception e) {
+
+            }
+            try{
+                sendMail(customer.getEmailId(), verificationCode+" is your OTP to transfer Rs."+amount,"Green Banking Transaction OTP");
+                otpSentMessage+=("Verification code sent to your mail " + customer.getEmailId().substring(0,2)+"XXXXXX");
+            } catch (Exception e){
+
+            }
+            if(otpSentMessage.isEmpty()){
+                return ResponseEntity.internalServerError().body("OTP not sent. Please try again");
+            }
+            return ResponseEntity.ok(otpSentMessage);
         } catch(Exception e){
             return ResponseEntity.badRequest().body("transaction failed");
         }
@@ -124,8 +148,23 @@ public class BankingService {
             transactionOtp.setOtp(verificationCode);
 
             transactionOtpRepository.save(transactionOtp);
-            sendSMS(customer.getContact(),verificationCode+" is your OTP to transfer Rs."+amount);
-            return ResponseEntity.ok("Verification code sent to " + customer.getContact());
+            String otpSentMessage ="";
+            try {
+                sendSMS(customer.getContact(), verificationCode + " is your OTP to transfer Rs." + amount);
+                otpSentMessage+=("Verification code sent to " + customer.getContact().charAt(0)+"XXXXXX"+customer.getContact().substring(6));
+            }catch (Exception e) {
+
+            }
+            try{
+                sendMail(customer.getEmailId(), verificationCode+" is your OTP to transfer Rs."+amount, "Green Banking Transaction OTP");
+                otpSentMessage+=("Verification code sent to your mail " + customer.getEmailId().substring(0,2)+"XXXXXX");
+            } catch (Exception e){
+
+            }
+            if(otpSentMessage.isEmpty()){
+                return ResponseEntity.internalServerError().body("OTP not sent. Please try again");
+            }
+            return ResponseEntity.ok(otpSentMessage);
         } catch(Exception e){
             return  ResponseEntity.badRequest().body("transaction failed");
         }
@@ -150,12 +189,12 @@ public class BankingService {
         smsService.sendSms("+91"+phoneNumber,  message);
     }
 
-    public void sendMail(String email, String message){
+    public void sendMail(String email, String message, String subject){
 
         // Send the mail
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(email);
-        mailMessage.setSubject("Green Banking OTP");
+        mailMessage.setSubject(subject);
         mailMessage.setText(message);
         mailSender.send(mailMessage);
 
