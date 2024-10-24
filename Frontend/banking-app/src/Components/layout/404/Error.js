@@ -4,7 +4,7 @@ export default function Error() {
     return (
         <>
 
-            <svg width="380px" height="500px" viewBox="0 0 837 1045" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xmlnsxsketch="http://www.bohemiancoding.com/sketch/ns">
+            <svg className="error-svg" width="380px" height="500px" viewBox="0 0 837 1045" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xmlnsxsketch="http://www.bohemiancoding.com/sketch/ns">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" sketchxtype="MSPage">
                     <path d="M353,9 L626.664028,170 L626.664028,487 L353,642 L79.3359724,487 L79.3359724,170 L353,9 Z" id="Polygon-1" stroke="#007FB2" strokeWidth="6" sketchxtype="MSShapeGroup"></path>
                     <path d="M78.5,529 L147,569.186414 L147,648.311216 L78.5,687 L10,648.311216 L10,569.186414 L78.5,529 Z" id="Polygon-2" stroke="#EF4A5B" strokeWidth="6" sketchxtype="MSShapeGroup"></path>

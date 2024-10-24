@@ -1,4 +1,5 @@
-import Logpage from "./Components/layout/LogPage/Logpage";
+// import Logpage from "./Components/layout/LogPage/Logpage";
+import Home from "./Components/Home";
 import Homepage from "./Components/layout/Main/Homepage/Homepage";
 import Withdraw from "./Components/layout/Main/Withdraw/Withdraw";
 import Deposit from "./Components/layout/Main/Deposit/Deposit";
@@ -10,7 +11,7 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Logpage/>,
+      element: <Home/>,
     },
     {
       path: "/home",
