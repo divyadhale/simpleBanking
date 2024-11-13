@@ -11,14 +11,15 @@ export default function Deposit(){
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(localStorage.getItem('accountNumber') == null){
-            navigate('/*');
-        }
+        // Commented for validation
+        // if(localStorage.getItem('accountNumber') == null){
+        //     navigate('/*');
+        // }
     })
     return(
         <>
             <div className='app'>
-                <Sidebar/>
+                {/* <Sidebar/> */}
                 <div className='main-content'>
                     <ContentTop/>
                     <ContentMain/>

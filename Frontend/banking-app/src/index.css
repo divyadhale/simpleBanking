@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.profileSection {
+  position: absolute;
+  bottom: 20px;
+  width: 15%;
+}
