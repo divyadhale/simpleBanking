@@ -71,7 +71,8 @@ button {
 
 .app {
   display: flex;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  margin-top: 8em;
 }
 
 /* commons */

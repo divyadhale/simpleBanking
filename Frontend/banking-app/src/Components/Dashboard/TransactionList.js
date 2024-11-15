@@ -41,17 +41,17 @@ function Transactions() {
       <Transaction>
         <TransactionIcon><PiHandWithdrawLight size={25} color='green' /></TransactionIcon>
         <TransactionName>Minimal apps Jan draft</TransactionName>
-        <TransactionAmount>£50,120</TransactionAmount>
+        <TransactionAmount>₹50,120</TransactionAmount>
       </Transaction>
       <Transaction>
         <TransactionIcon><PiHandDepositLight size={25} /></TransactionIcon>
         <TransactionName>Mortgage Jubilee Place</TransactionName>
-        <TransactionAmount>£17,394</TransactionAmount>
+        <TransactionAmount>₹17,394</TransactionAmount>
       </Transaction>
       <Transaction>
         <TransactionIcon><PiHandWithdrawLight size={25} color='green' /></TransactionIcon>
         <TransactionName>Craven Hill Rent</TransactionName>
-        <TransactionAmount>£3,670</TransactionAmount>
+        <TransactionAmount>₹3,670</TransactionAmount>
       </Transaction>
     </TransactionsContainer>
   );

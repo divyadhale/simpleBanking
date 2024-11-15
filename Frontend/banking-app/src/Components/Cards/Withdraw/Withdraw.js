@@ -4,6 +4,10 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 import "./Withdraw.css";
+import NavBar1 from "../../../common/Navbar1";
+import NavBar2 from "../../../common/Navbar2";
+import RegulatoryFooter from "../../../common/RegulatoryFooter";
+import SideMenu from "../../Dashboard/SideMenu";
 
 export default function Withdraw() {
   const [amount, setAmount] = useState(0);
@@ -31,7 +35,7 @@ export default function Withdraw() {
     }
     try {
       const response = await axios.post(`http://localhost:8080/api/simple/banking/withdraw?accNumber=${JSON.parse(accountId)}&amount=${amount}`);
-      if(response.data !== "Insufficient Balance"){
+      if (response.data !== "Insufficient Balance") {
         Swal.fire({
           title: "Withdraw Successful",
           timer: 2000,
@@ -45,7 +49,7 @@ export default function Withdraw() {
           }
         })
       }
-      else{
+      else {
         Swal.fire({
           title: "Insufficient Balance",
           timer: 2000,
@@ -60,17 +64,25 @@ export default function Withdraw() {
   }
 
   return (
-    <div className="grid-one-item grid-common grid-c1">
-      <div className="grid-c-title">
-        <h3 className="grid-c-title-text">Main Account</h3>
+    <>
+    <div style={{ "position": "fixed", "top": "0", "zIndex": "3" }}>
+        <NavBar1 />
+        <NavBar2 />
       </div>
-      <div className="grid-c1-content">
-        <p>Withdraw</p>
-        <p className="lg-value"> Account: {JSON.parse(accountId)}</p>
-        <input className="lg-value" type="number" placeholder="Enter Amount" onChange={(e) => { setAmount(e.target.value) }}></input>
-        <br></br>
-        <button type="sumbit" onClick={handleOnSubmit} className="submit-btn">Submit</button>
+      <div className="grid-one-item grid-common grid-c1">
+        <SideMenu />
+        <div className="grid-c-title">
+          <h3 className="grid-c-title-text">Main Account</h3>
+        </div>
+        <div className="grid-c1-content">
+          <p>Withdraw</p>
+          <p className="lg-value"> Account: {JSON.parse(accountId)}</p>
+          <input className="lg-value" type="number" placeholder="Enter Amount" onChange={(e) => { setAmount(e.target.value) }}></input>
+          <br></br>
+          <button type="sumbit" onClick={handleOnSubmit} className="submit-btn">Submit</button>
+        </div>
       </div>
-    </div>
+      <RegulatoryFooter />
+    </>
   )
 }

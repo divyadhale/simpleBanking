@@ -2,12 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import SideMenu from './SideMenu';
 import Overview from './Overview';
-import Transactions from './Transaction';
-import QuickTransfers from './QuickTransfers';
+import Transactions from './TransactionList';
+// import QuickTransfers from './QuickTransfers';
 import Cards from './Cards';
+import NavBar1 from '../../common/Navbar1';
+import NavBar2 from '../../common/Navbar2';
+import RegulatoryFooter from '../../common/RegulatoryFooter';
 
 const DashboardContainer = styled.div`
   display: flex;
+  margin-top: 8em;
 `;
 
 const DashboardContent = styled.div`
@@ -15,6 +19,7 @@ const DashboardContent = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
+  padding: 20px 20px 10em;
   background-color: #f4f5f7;
 `;
 
@@ -30,21 +35,28 @@ const RightSidebar = styled.div`
 `;
 
 function Dashboard() {
-    return (
-        <DashboardContainer>
-            {/* <SideMenu /> */}
-            <DashboardContent>
-                <MainContent>
-                    <Overview />
-                    <Transactions />
-                </MainContent>
-                <RightSidebar>
-                    {/* <QuickTransfers /> */}
-                    <Cards />
-                </RightSidebar>
-            </DashboardContent>
-        </DashboardContainer>
-    );
+  return (
+    <>
+      <div style={{ "position": "fixed", "top": "0", "zIndex": "3" }}>
+        <NavBar1 />
+        <NavBar2 />
+      </div>
+      <DashboardContainer>
+        <SideMenu />
+        <DashboardContent>
+          <MainContent>
+            <Overview />
+            <Transactions />
+          </MainContent>
+          <RightSidebar>
+            {/* <QuickTransfers /> */}
+            <Cards />
+          </RightSidebar>
+        </DashboardContent>
+      </DashboardContainer>
+      <RegulatoryFooter />
+    </>
+  );
 }
 
 export default Dashboard;

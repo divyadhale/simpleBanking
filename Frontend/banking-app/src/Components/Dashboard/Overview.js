@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const OverviewContainer = styled.div`
   display: flex;
   gap: 20px;
-  padding: 20px 0;
+  padding: 0 0 20px;
 `;
 
 const AccountBalance = styled.div`
@@ -28,19 +28,19 @@ function Overview() {
   return (
     <OverviewContainer>
       <AccountBalance>
-        <BalanceAmount>£50,090</BalanceAmount>
-        <BalanceLabel>Premier Account</BalanceLabel>
+        <BalanceAmount>₹ 50,090</BalanceAmount>
+        <BalanceLabel>Balance</BalanceLabel>
       </AccountBalance>
       <AccountBalance>
-        <BalanceAmount>£9,900</BalanceAmount>
-        <BalanceLabel>ISA Savings</BalanceLabel>
+        <BalanceAmount>₹ 9,900</BalanceAmount>
+        <BalanceLabel>Credit Card</BalanceLabel>
       </AccountBalance>
       <AccountBalance>
-        <BalanceAmount>£120,012</BalanceAmount>
-        <BalanceLabel>Other Savings</BalanceLabel>
+        <BalanceAmount>₹ 120,012</BalanceAmount>
+        <BalanceLabel>Loan Amount</BalanceLabel>
       </AccountBalance>
       <AccountBalance>
-        <BalanceAmount>£3,681,233</BalanceAmount>
+        <BalanceAmount>₹ 0</BalanceAmount>
         <BalanceLabel>Mortgage</BalanceLabel>
       </AccountBalance>
     </OverviewContainer>

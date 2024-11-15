@@ -1,5 +1,5 @@
 // SideMenu.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaInbox, FaChartLine, FaBell, FaHome, FaMoneyBill, FaChartPie, FaPiggyBank, FaUser } from 'react-icons/fa';
@@ -14,10 +14,12 @@ const SideMenuContainer = styled.div`
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   height: 95vh;
+  position: relative;
 `;
 
 const MenuItemStyledComponent = styled(Link)`
   display: flex;
+  position: relative;
   align-items: center;
   padding: 10px 15px;
   margin-bottom: 10px;
@@ -62,46 +64,52 @@ const StickToBottom = styled(Link)`
 `;
 
 function SideMenu() {
-    const [activeItem, setActiveItem] = useState('Overview');
-    const [anchorEl, setAnchorEl] = React.useState(null);
+  const [activeItem, setActiveItem] = useState('Dashboard');
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const menuItems = [
+    { name: 'Dashboard', path: '/dashboard', icon: <FaChartLine /> },
+    { name: 'Deposits', path: '/deposits', icon: <FaInbox /> },
+    { name: 'Withdraw', path: '/withdraw', icon: <FaBell /> },
+    { name: 'Transaction History', path: '/transaction-history', icon: <FaHome /> },
+  ];
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const handleMenuClick = (name) => {
+    setActiveItem(name);
+  };
 
-    const menuItems = [
-        { name: 'Overview', path: '/overview', icon: <FaChartLine /> },
-        { name: 'Deposits', path: '/deposits', icon: <FaInbox /> },
-        { name: 'Withdraw', path: '/withdraw', icon: <FaBell /> },
-        { name: 'Transaction History', path: '/transaction-history', icon: <FaHome /> },
-    ];
+  useEffect(() => {
+    let curLocation = window.location.pathname;
+    let curTab = menuItems.find(c => c.path === curLocation);
+    
+    if(curTab)
+      setActiveItem(curTab.name);
+  },[])
 
-    const handleMenuClick = (name) => {
-        setActiveItem(name);
-    };
-
-    return (
-        <SideMenuContainer>
-            {menuItems.map((item) => (
-                <MenuItemStyledComponent
-                    key={item.name}
-                    to={item.path}
-                    active={item.name === activeItem}
-                    onClick={() => handleMenuClick(item.name)}
-                >
-                    {item.icon}
-                    {item.name}
-                </MenuItemStyledComponent>
-            ))}
-            <div className="profileSection">
-                <Divider />
-                <StickToBottom to="/user-profile"
-                    active={'UserProfile' === activeItem} onClick={() => handleMenuClick('UserProfile')}>
-                    <FaUser />&nbsp; Profile
-                </StickToBottom>
-            </div>
-        </SideMenuContainer>
-    );
+  return (
+    <SideMenuContainer>
+      {menuItems.map((item) => (
+        <MenuItemStyledComponent
+          key={item.name}
+          to={item.path}
+          active={item.name === activeItem}
+          onClick={() => handleMenuClick(item.name)}
+        >
+          {item.icon}
+          {item.name}
+        </MenuItemStyledComponent>
+      ))}
+      <div className="profileSection">
+        <Divider />
+        <StickToBottom to="/user-profile"
+          active={'UserProfile' === activeItem} onClick={() => handleMenuClick('UserProfile')}>
+          <FaUser /> Profile
+        </StickToBottom>
+      </div>
+    </SideMenuContainer>
+  );
 }
 
 export default SideMenu;
