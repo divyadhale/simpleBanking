@@ -9,7 +9,7 @@ import {
 import styled, { createGlobalStyle } from "styled-components";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Home from "./Components/Home";
-import Logpage from "./Components/layout/LogPage/Logpage";
+import LoginPage from "./Components/layout/LogPage/Loginpage";
 import Transactions from "./Components/Dashboard/TransactionList";
 import Withdraw from "./Components/Cards/Withdraw/Withdraw";
 import Profile from "./Components/Profile";
@@ -49,10 +49,10 @@ function App() {
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/user-profile" element={<Profile />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<LoginPage />} />
             {/* Define routes for other components here... */}
             {/* Redirect to Dashboard if the path is not found */}
             <Route path="*" element={<Navigate to="/" />} />
-            <Route path="/login" element={<Logpage />} />
           </Routes>
         </ContentContainer>
       </AppContainer>

@@ -13,9 +13,7 @@ function Register() {
       <NavBar1 />
       <NavBar2 />
       <div className="reg-form-container">
-        
         <SignUpForm />
-
       </div>
       <EngagementFooter />
       <RegulatoryFooter />

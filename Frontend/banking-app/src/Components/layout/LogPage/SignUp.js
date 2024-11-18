@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import "./styles.css";
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
+
 function SignUpForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -18,6 +18,7 @@ function SignUpForm() {
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+
   let timerInterval;
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +27,7 @@ function SignUpForm() {
       [name]: value
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {

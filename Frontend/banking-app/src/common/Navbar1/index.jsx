@@ -42,7 +42,7 @@ function NavBar1() {
             <FontAwesomeIcon className="left-margin" icon={faAngleRight} />
             </span>
           </div>
-          <button className="option login-button" onClick={onLogin}>Log on</button>
+          <div className="option login-button" onClick={onLogin}>Log in</div>
         </div>
       </div>
     </>
