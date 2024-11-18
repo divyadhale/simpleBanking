@@ -203,4 +203,20 @@ public class BankingService {
     public Double checkBalance(Long customerId) {
         return customerRepository.findById(customerId).orElseThrow().getCurrentbalance();
     }
+    
+  //profile
+    public ResponseEntity<?> getProfile(Long customerId) {
+        try {
+            Optional<Customer> customer = customerRepository.findById(customerId);
+             if (customer.isPresent()) {
+            	 String newpassword = "******";
+            	 customer.get().setPassword(newpassword);
+            	 return ResponseEntity.ok(customer);
+            } else {
+                return ResponseEntity.badRequest().body("User with id " + customerId + " not present");
+            }
+        }catch (Exception ex){
+            return ResponseEntity.internalServerError().body("An error Occurred . Please try again");
+        }
+    }
 }
