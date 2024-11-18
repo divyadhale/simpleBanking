@@ -1,9 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
 
 import "./index.css"
 
 function NavBar1() {
+
+  const navigate = useNavigate();
+
+  const onLogin = () => {
+    navigate('/login');
+  };
+  
   return(
     <>
       <div className="main">
@@ -25,7 +33,7 @@ function NavBar1() {
             Register
             <FontAwesomeIcon className="left-margin" icon={faAngleRight} />
           </div>
-          <div className="option login-button">Log on</div>
+          <button className="option login-button" onClick={onLogin}>Log on</button>
         </div>
       </div>
     </>
