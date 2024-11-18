@@ -78,8 +78,18 @@ public class BankingController {
 
     //Balance Inquiry
     @GetMapping("/balance/{accountNumber}")
-    public ResponseEntity<String> getBalance(@PathVariable Long accountNumber){
-       Optional<Customer> customer = customerService.getCustomer(accountNumber);
-        return customer.map(value -> ResponseEntity.ok("Current Balance is : " + value.getCurrentbalance())).orElseGet(() -> ResponseEntity.status(404).body("Account Not Found"));
+    public ResponseEntity<?> getBalance(@PathVariable Long accountNumber){
+    	try {
+    		Optional<Customer> customer = customerService.getCustomer(accountNumber);
+       			if (customer.isPresent()) {
+       				return ResponseEntity.ok(customer.get().getCurrentbalance());
+       			} else {
+       				return ResponseEntity.badRequest().body("User with account number : " + accountNumber + " not present");
+       			}
+    	}
+       	catch (Exception ex){
+       			return ResponseEntity.internalServerError().body("An error Occurred . Please try again");
+       }
     }
 }
+
