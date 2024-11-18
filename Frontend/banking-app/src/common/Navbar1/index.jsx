@@ -11,7 +11,9 @@ function NavBar1() {
   const onLogin = () => {
     navigate('/login');
   };
-  
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
   return(
     <>
       <div className="main">
@@ -30,8 +32,15 @@ function NavBar1() {
             <FontAwesomeIcon icon={faSearch} />
           </div>
           <div className="option">
+          <span
+       onClick={handleRegisterClick}
+       style={{
+         cursor: "pointer"
+       }}
+>
             Register
             <FontAwesomeIcon className="left-margin" icon={faAngleRight} />
+            </span>
           </div>
           <button className="option login-button" onClick={onLogin}>Log on</button>
         </div>
