@@ -69,6 +69,12 @@ public class BankingController {
     public ResponseEntity<?> history(@RequestParam Long customerId){
         return bankingService.getTransactionHistory(customerId);
     }
+    
+    //GetProfile
+    @GetMapping("/profile")
+    public ResponseEntity<?> profile(@RequestParam Long customerId){
+        return bankingService.getProfile(customerId);
+    }
 
     //Balance Inquiry
     @GetMapping("/balance/{accountNumber}")
