@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const OverviewContainer = styled.div`
   display: flex;
@@ -25,10 +26,26 @@ const BalanceLabel = styled.p`
 `;
 
 function Overview() {
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const custId = localStorage.getItem('customerId');
+        await axios.get(`http://localhost:8080/api/simple/banking/balance/${JSON.parse(custId)}`).then(res => {
+          setBalance(res.data)
+        })
+      } catch (err) {
+        console.log('Error fetching balance', err);
+      }
+    }
+    fetchData();
+  }, [])
+
   return (
     <OverviewContainer>
       <AccountBalance>
-        <BalanceAmount>₹ 50,090</BalanceAmount>
+        <BalanceAmount>₹ {balance}</BalanceAmount>
         <BalanceLabel>Balance</BalanceLabel>
       </AccountBalance>
       <AccountBalance>

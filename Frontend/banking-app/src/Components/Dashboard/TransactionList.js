@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PiHandWithdrawLight, PiHandDepositLight } from "react-icons/pi";
+import axios from 'axios';
 
 const TransactionsContainer = styled.div`
   background-color: #fff;
@@ -35,7 +36,33 @@ const TransactionAmount = styled.span`
 const TransactionIcon = styled.p`
 color: red 
 `
+
+// function renderTransCard() {
+//   return (
+//     <Transaction>
+//       <TransactionIcon><PiHandWithdrawLight size={25} color='green' /></TransactionIcon>
+//       <TransactionName>Minimal apps Jan draft</TransactionName>
+//       <TransactionAmount>₹50,120</TransactionAmount>
+//     </Transaction>
+//   )
+// }
+
 function Transactions() {
+  // const [transList, setTransList] = useState([]);
+
+  // useEffect(() => {
+  //   async function fetchTransList() {
+  //     await axios.get('http://localhost:8080/api/simple/banking/history?customerId=1000000000')
+  //       .then(res => {
+  //         if (res.data.length) {
+  //           setTransList(res.data)
+  //         }
+  //       })
+  //   }
+
+  //   fetchTransList();
+  // }, [])
+
   return (
     <TransactionsContainer>
       <Transaction>
