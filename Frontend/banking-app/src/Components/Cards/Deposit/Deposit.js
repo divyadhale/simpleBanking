@@ -32,7 +32,7 @@ export default function Deposit() {
   const handleTransaction = async () => {
     try {
       await axios.post("http://localhost:8080/api/simple/banking/doTransaction", {
-        customerId: customerId,
+        customerId: JSON.parse(customerId),
         code: receivedOtp
       }).then((resp) => {
         if (resp) {

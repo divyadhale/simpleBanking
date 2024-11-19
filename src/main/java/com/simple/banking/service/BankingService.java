@@ -143,7 +143,7 @@ public class BankingService {
             }
             transactionOtp.setCustomerId(customerId);
             transactionOtp.setWithdraw(amount);
-            transactionOtp.setClosingBalance(customer.getCurrentbalance()+ amount);
+            transactionOtp.setClosingBalance(customer.getCurrentbalance()- amount);
             transactionOtp.setTimestamp(LocalDateTime.now());
             transactionOtp.setOtp(verificationCode);
 

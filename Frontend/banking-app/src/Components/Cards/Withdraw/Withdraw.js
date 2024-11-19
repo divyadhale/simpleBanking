@@ -41,12 +41,12 @@ export default function Withdraw() {
   const handleTransaction = async () => {
     try {
       await axios.post("http://localhost:8080/api/simple/banking/doTransaction", {
-        customerId: customerId,
+        customerId: JSON.parse(customerId),
         code: receivedOtp
       }).then((resp) => {
         if (resp) {
           Swal.fire({
-            title: "Deposit Successful",
+            title: "Withdrawl Successful",
             timer: 2000,
             timerProgressBar: true,
             willClose: () => {
