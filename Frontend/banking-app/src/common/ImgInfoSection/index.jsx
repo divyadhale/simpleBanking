@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./index.css";
-import { faAngleRight, faAngleUp, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 function ImgInfoSection() {
   const scrollToTop = () => {
@@ -15,7 +15,7 @@ function ImgInfoSection() {
       <div className="ImgInfo-main">
         <div className="imgInfo-section">
           <div className="imgInfo-img-section">
-            <img src={process.env.PUBLIC_URL + "imgInfo1.png"} />
+            <img src={process.env.PUBLIC_URL + "imgInfo1.png"}  alt=""/>
           </div>
           <div className="imgInfo-info-section">
             <div>Think you've been a victim of fraud?</div>
@@ -31,7 +31,7 @@ function ImgInfoSection() {
 
         <div className="imgInfo-section">
           <div className="imgInfo-img-section-2">
-            <img src={process.env.PUBLIC_URL + "imgInfo2.png"} />
+            <img src={process.env.PUBLIC_URL + "imgInfo2.png"} alt=""/>
           </div>
           <div className="imgInfo-info-section">
             <div>We're registered with the DICGC</div>

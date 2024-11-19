@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import NavBar1 from '../../../../common/Navbar1';
 import './Deposit.css';
 import ContentMain from './ContentMain/ContentMain';
 import RegulatoryFooter from '../../../../common/RegulatoryFooter';
@@ -10,7 +9,8 @@ import SideMenu from '../../../Dashboard/SideMenu';
 
 const DepositContainer = styled.div`
   display: flex;
-  margin-top: 8em;
+  margin-top: 5.8em;
+  margin-bottom: 10em;
 `
 
 export default function Deposit() {
@@ -25,7 +25,6 @@ export default function Deposit() {
   return (
     <>
       <div style={{ "position": "fixed", "top": "0", "zIndex": "3" }}>
-        <NavBar1 />
         <NavBar2 />
       </div>
       <DepositContainer>

@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FaInbox, FaChartLine, FaBell, FaHome, FaMoneyBill, FaChartPie, FaPiggyBank, FaUser } from 'react-icons/fa';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { FaInbox, FaChartLine, FaBell, FaHome, FaUser } from 'react-icons/fa';
 import { Divider } from '@mui/material';
 import '../../index.css';
 
@@ -65,16 +63,16 @@ const StickToBottom = styled(Link)`
 
 function SideMenu() {
   const [activeItem, setActiveItem] = useState('Dashboard');
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
   const menuItems = [
     { name: 'Dashboard', path: '/dashboard', icon: <FaChartLine /> },
     { name: 'Deposits', path: '/deposits', icon: <FaInbox /> },
     { name: 'Withdraw', path: '/withdraw', icon: <FaBell /> },
     { name: 'Transaction History', path: '/transaction-history', icon: <FaHome /> },
   ];
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const handleMenuClick = (name) => {
     setActiveItem(name);

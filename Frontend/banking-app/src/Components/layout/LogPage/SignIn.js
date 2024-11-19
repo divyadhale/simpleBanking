@@ -15,7 +15,7 @@ function SignInForm() {
     e.preventDefault();
 
     if (!email) {
-      setEmailError("You must provide your username.");
+      setEmailError("You must provide your email.");
     } else {
       setEmailError("");
     }
@@ -34,7 +34,7 @@ function SignInForm() {
         );
         if (response.data.statusCode === 200) {
           localStorage.setItem(
-            "accountNumber",
+            "customerId",
             JSON.stringify(response.data.accountNumber)
           );
           Swal.fire({
@@ -49,7 +49,7 @@ function SignInForm() {
               result.dismiss === Swal.DismissReason.timer ||
               result.isConfirmed
             ) {
-              navigate("/home");
+              navigate("/dashboard");
             }
           });
         }
@@ -67,7 +67,7 @@ function SignInForm() {
   };
   const handleBlur = (field) => {
     if (field === "email" && !email) {
-      setEmailError("You must provide your username.");
+      setEmailError("You must provide your email.");
     } else if (field === "password" && !password) {
       setPasswordError("You must provide your password.");
     }
@@ -94,7 +94,7 @@ function SignInForm() {
           <div className="form-group login-form-group1">
             <div className="login-label-container">
               <label htmlFor="email" className="login-label">
-                Please enter your username
+                Please enter your email
               </label>
             </div>
             <input

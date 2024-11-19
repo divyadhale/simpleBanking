@@ -11,7 +11,7 @@ function ImgTileCatelog({ param }) {
           {
             param.map((infoObj, i) => {
               return <div className="img-info-tile" key={i}>
-                <img className="img-container" src={process.env.PUBLIC_URL + infoObj.imgLink} />
+                <img className="img-container" src={process.env.PUBLIC_URL + infoObj.imgLink} alt="" />
                 <div className="info-container">
                   <div className="title-section">
                     <div className="imgcatelog-title">{infoObj.title}</div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 
 const ProfileContainer = styled.div`
    flex: 1;
@@ -10,14 +10,14 @@ const ProfileContainer = styled.div`
 `;
 
 const Profile = () => {
-    return (
-        <>
-            <ProfileContainer>
-                your profile content here!!!
-            </ProfileContainer>
-        </>
+  return (
+    <>
+      <ProfileContainer>
+        your profile content here!!!
+      </ProfileContainer>
+    </>
 
-    )
+  )
 
 }
 

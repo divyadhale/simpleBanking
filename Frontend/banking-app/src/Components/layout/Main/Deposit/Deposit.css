@@ -100,6 +100,16 @@ button {
 .grid-c-title-icon img {
   width: 24px;
 }
+.main-content {
+  flex: 1;
+  padding: 20px 20px 10px;
+}
+.otp-inp {
+  background: transparent;
+}
+.spacing {
+  margin: 10px 0 20px;
+}
 
 @media screen and (max-width: 1400px) {
   .grid-common {
@@ -108,11 +118,6 @@ button {
   body {
     font-size: 14px !important;
   }
-}
-.main-content {
-  background-color: var(--clr-secondary);
-  flex: 1;
-  padding: 32px;
 }
 
 @media screen and (max-width: 1400px) {
@@ -123,18 +128,11 @@ button {
   
 }
 
-
 @media screen and (max-width: 1200px) {
   .main-content {
     padding-right: 16px;
     padding-left: 16px;
   }
-}
-
-.main-content {
-  background-color: var(--clr-secondary);
-  flex: 1;
-  padding: 32px;
 }
 
 @media screen and (max-width: 1400px) {

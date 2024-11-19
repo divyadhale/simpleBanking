@@ -1,28 +1,67 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-import "./Deposit.css";
+// import "./Deposit.css";
 
 export default function Deposit() {
   const [amount, setAmount] = useState(0);
-  const [accountId, setAccountId] = useState(0);
+  const [customerId, setCustomerId] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [receivedOtp, setReceivedOtp] = useState(0);
   const navigate = useNavigate();
   let timerInterval;
 
   useEffect(() => {
-    const accnumber = localStorage.getItem('accountNumber');
-    setAccountId(accnumber);
+    const customerId = localStorage.getItem('customerId');
+    setCustomerId(customerId);
   }, [])
+
+  const cancelModal = () => {
+    setShowModal(false);
+  };
+
+  const handleOTPchange = (e) => {
+    let value = e.target.value.trim();
+    if (value)
+      setReceivedOtp(value);
+  }
+
+  const handleTransaction = async () => {
+    try {
+      await axios.post("http://localhost:8080/api/simple/banking/doTransaction", {
+        customerId: customerId,
+        code: receivedOtp
+      }).then((resp) => {
+        if (resp) {
+          Swal.fire({
+            title: "Deposit Successful",
+            timer: 2000,
+            timerProgressBar: true,
+            willClose: () => {
+              clearInterval(timerInterval);
+            }
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+              navigate('/dashboard');
+            }
+          })
+        }
+      })
+    } catch (error) {
+
+    }
+  }
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (amount <= 0) {
       Swal.fire({
-        title: "Please Enter a Valid Amount",
+        title: "Please enter a valid amount",
         timer: 2000,
-        timerProgressBar: true, 
+        timerProgressBar: true,
         willClose: () => {
           clearInterval(timerInterval);
         }
@@ -30,36 +69,61 @@ export default function Deposit() {
       return;
     }
     try {
-      await axios.post(`http://localhost:8080/api/simple/banking/deposit?accNumber=${JSON.parse(accountId)}&amount=${amount}`);
-      Swal.fire({
-        title: "Deposit Successful",
-        timer: 2000,
-        timerProgressBar: true,
-        willClose: () => {
-          clearInterval(timerInterval);
-        }
-      }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
-          navigate('/home');
-        }
+      await axios.post(`http://localhost:8080/api/simple/banking/deposit?customerId=${JSON.parse(customerId)}&amount=${amount}`).then((resp) => {
+        Swal.fire({
+          title: "OTP sent to your registered email id",
+          timer: 2000,
+          timerProgressBar: true,
+          willClose: () => {
+            clearInterval(timerInterval);
+          }
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+            setShowModal(true);
+          }
+        })
       })
     } catch (err) {
-      console.log('Error during login:');
+      console.log('Error during transaction: ', err);
     }
   }
 
   return (
-    <div className="grid-one-item grid-common grid-c1">
-      <div className="grid-c-title">
-        <h3 className="grid-c-title-text">Main Account</h3>
-      </div>
+    <>
       <div className="grid-c1-content">
-        <p>Deposit</p>
-        <p className="lg-value"> Account: {JSON.parse(accountId)}</p>
-        <input className="lg-value" type="number" placeholder="Enter Amount" onChange={(e) => { setAmount(e.target.value) }}></input>
+        <p className="lg-value"> Customer Id: {JSON.parse(customerId)}</p>
+        <input className="amt-inp" type="number" placeholder="enter amount" onChange={(e) => { setAmount(e.target.value) }}></input>
         <br></br>
         <button type="sumbit" onClick={handleOnSubmit} className="submit-btn">Submit</button>
       </div>
-    </div>
+      <Modal
+        isOpen={showModal}
+        onRequestClose={cancelModal}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          },
+          content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            width: '450px',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            padding: '20px',
+            textAlign: 'left'
+          }
+        }}
+      >
+        <h3 className="modal-header spacing">2-Step Verification</h3>
+        <p className="modal-p">Pleaes enter the OTP send to your email id.</p>
+        <input type="number" className="otp-inp" onChange={(e) => handleOTPchange(e)} />
+        <div className="modal-buttons">
+          <button className="cancel-button" onClick={cancelModal}>Cancel</button>
+          <button className="continue-button" onClick={handleTransaction}>Continue</button>
+        </div>
+      </Modal>
+    </>
   )
 }

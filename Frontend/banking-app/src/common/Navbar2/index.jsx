@@ -1,12 +1,12 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./index.css"
 
 function NavBar2() {
-  const [hoverContent, setHoverContent] = useState('');
+  // const [hoverContent, setHoverContent] = useState('');
 
-  const contentMap = {
-    "banking": {}
-  }
+  // const contentMap = {
+  //   "banking": {}
+  // }
 
   return (
     <>

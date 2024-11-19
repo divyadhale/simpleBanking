@@ -1,18 +1,25 @@
 /* grid c1 */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0; 
+}
+.amt-inp {
+  background: transparent;
+}
 .grid-c1 {
     display: flex;
     flex-direction: column;
   }
   .grid-c1-content {
-    background: linear-gradient(
-        114.07deg,
-        rgba(66, 59, 55, 0.6) 3.49%,
-        rgba(66, 59, 55, 0) 34.7%
-      ),
-      linear-gradient(138.58deg, rgba(59, 43, 30, 0.37) 43.56%, #fea767 112.68%);
+    background: #fff;
     flex: 1;
-    border-radius: 10px;
-    padding: 16px;
+    width: 30em;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   .grid-c1-content .lg-value {
     margin-top: 8px;
@@ -21,13 +28,11 @@
     font-size: small;
   }
   .submit-btn {
-    background: #fe6c00;
-    padding: 10px;
-    border-radius: 10px;
+    background: #db0011;
+    padding: 10px 15px;
     color: #fff;
     font-size: small;
-    margin-top: 8px;
-    margin-bottom: 16px;
+    margin: 2em 0 1em;
   }
   .grid-c1-content .expiry-text {
     margin-bottom: 6px;

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { PiHandWithdrawLight, PiHandDepositLight } from "react-icons/pi";
-import axios from 'axios';
 
 const TransactionsContainer = styled.div`
   background-color: #fff;

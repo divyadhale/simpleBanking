@@ -5,13 +5,12 @@ import Overview from './Overview';
 import Transactions from './TransactionList';
 // import QuickTransfers from './QuickTransfers';
 import Cards from './Cards';
-import NavBar1 from '../../common/Navbar1';
 import NavBar2 from '../../common/Navbar2';
 import RegulatoryFooter from '../../common/RegulatoryFooter';
 
 const DashboardContainer = styled.div`
   display: flex;
-  margin-top: 8em;
+  margin-top: 5.8em;
 `;
 
 const DashboardContent = styled.div`
@@ -38,7 +37,6 @@ function Dashboard() {
   return (
     <>
       <div style={{ "position": "fixed", "top": "0", "zIndex": "3" }}>
-        <NavBar1 />
         <NavBar2 />
       </div>
       <DashboardContainer>

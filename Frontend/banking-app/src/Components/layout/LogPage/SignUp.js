@@ -8,16 +8,17 @@ import Swal from 'sweetalert2';
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    firstName: '',
+    lastName:'',
+    emailId: '',
     password: '',
-    confirmPassword: '',
-    aadharNo: '',
-    panNo: '',
+    address: '',
+    aadharNumber: '',
+    panNumber: '',
     contact: '',
   });
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
+  // const [error, setError] = useState(null);
+  // const [success, setSuccess] = useState(false);
 
   let timerInterval;
   const handleChange = (e) => {
@@ -30,47 +31,64 @@ function SignUpForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      Swal.fire({
-        title: "Passwords do not match.",
-        timer: 2000,
-        timerProgressBar: true,
-        willClose: () => {
-          clearInterval(timerInterval);
+    // if (formData.password !== formData.confirmPassword) {
+    //   Swal.fire({
+    //     title: "Passwords do not match.",
+    //     timer: 2000,
+    //     timerProgressBar: true,
+    //     willClose: () => {
+    //       clearInterval(timerInterval);
+    //     }
+    //   })
+    //   return; 1000000000 account_number
+    // }
+    try {
+      // setError(null);
+      // setSuccess(false);
+      await axios.post('http://localhost:8080/api/simple/banking/register', formData).then((resp) => {
+        if (resp.status === 200) {
+          // setSuccess(true);
+          setFormData({
+            firstName: '',
+            lastName: '',
+            emailId: '',
+            password: '',
+            address: '',
+            aadharNumber: '',
+            panNumber: ''
+          });
+          Swal.fire({
+            title: "Registration Successful",
+            timer: 2000,
+            timerProgressBar: true,
+            willClose: () => {
+              clearInterval(timerInterval);
+            }
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+              navigate('/login');
+            }
+          })
+        }
+        else {
+          console.log("++++++++++++++++++", resp)
+          // Swal.fire({
+          //   title: "Registration Successful",
+          //   timer: 2000,
+          //   timerProgressBar: true,
+          //   willClose: () => {
+          //     clearInterval(timerInterval);
+          //   }
+          // }).then((result) => {
+          //   if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+          //     navigate('/login');
+          //   }
+          // })
         }
       })
-      return;
-    }
-    try {
-      setError(null);
-      setSuccess(false);
-      const response = await axios.post('http://localhost:8080/api/simple/banking/register', formData);
-      if (response.status === 200) {
-        setSuccess(true);
-        setFormData({
-          name: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          aadharNo: '',
-          panNo: ''
-        });
-        Swal.fire({
-          title: "Registration Successful",
-          timer: 2000,
-          timerProgressBar: true,
-          willClose: () => {
-            clearInterval(timerInterval);
-          }
-        }).then((result) => {
-          if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
-            navigate('/home');
-          }
-        })
-      }
     } catch (error) {
       Swal.fire({
-        title: "Registration failed.",
+        title: "Something went wrong please try after sometime.",
         timer: 2000,
         timerProgressBar: true,
         willClose: () => {
@@ -84,12 +102,13 @@ function SignUpForm() {
   const handleCancel = () => {
     setShowModal(true);
     setFormData({
-      name: '',
-      email: '',
+      firstName: '',
+      lastName: '',
+      emailId: '',
       password: '',
-      confirmPassword: '',
-      aadharNo: '',
-      panNo: ''
+      address: '',
+      aadharNumber: '',
+      panNumber: ''
     });
   };
   const confirmCancel = () => {
@@ -117,30 +136,45 @@ function SignUpForm() {
         >
           <div className="form-group reg-form-group1">
             <div className="reg-label-container">
-              <label htmlFor="email" className="reg-label">
-                Please enter your full name
+              <label htmlFor="firstName" className="reg-label">
+                Please enter your First name
               </label>
             </div>
             <input
             className="RegInput"
             type="text"
-            name="name"
-            value={formData.name}
+            name="firstName"
+            value={formData.firstName}
             onChange={handleChange}
             required
             />
           </div>
           <div className="form-group reg-form-group2">
             <div className="reg-label-container">
-              <label htmlFor="email" className="reg-label">
+              <label htmlFor="lastName" className="reg-label">
+                Please enter your Last name
+              </label>
+            </div>
+            <input
+            className="RegInput"
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+            />
+          </div>
+          <div className="form-group reg-form-group2">
+            <div className="reg-label-container">
+              <label htmlFor="emailId" className="reg-label">
                 Please enter your email
               </label>
             </div>
             <input
               className="RegInput"
               type="email"
-              name="email"
-              value={formData.email}
+              name="emailId"
+              value={formData.emailId}
               onChange={handleChange}
               required
             />
@@ -155,52 +189,52 @@ function SignUpForm() {
               className="RegInput"
               type="password"
               name="password"
-              value={formData.password}
+              // value={formData.password}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group reg-form-group2">
             <div className="reg-label-container">
-              <label htmlFor="confirmpassword" className="reg-label">
-                Please confirm your password
+              <label htmlFor="address" className="reg-label">
+                Please enter your address
               </label>
             </div>
             <input
               className="RegInput"
-              type="password"
-              name="password"
-              value={formData.confirmPassword}
+              type="text"
+              name="address"
+              // value={formData.confirmPassword}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group reg-form-group2">
             <div className="reg-label-container">
-              <label htmlFor="panno" className="reg-label">
+              <label htmlFor="panNumber" className="reg-label">
                 Please enter your PAN card number
               </label>
             </div>
             <input
               className="RegInput"
               type="text"
-              name="panNo"
-              value={formData.panNo}
+              name="panNumber"
+              value={formData.panNumber}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group reg-form-group2">
             <div className="reg-label-container">
-              <label htmlFor="aadharNo" className="reg-label">
+              <label htmlFor="aadharNumber" className="reg-label">
                 Please enter your Aadhar number
               </label>
             </div>
             <input
               className="RegInput"
               type="text"
-              name="aadharNo"
-              value={formData.aadharNo}
+              name="aadharNumber"
+              value={formData.aadharNumber}
               onChange={handleChange}
               required
             />
