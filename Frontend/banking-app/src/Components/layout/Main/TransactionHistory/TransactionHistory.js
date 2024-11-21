@@ -3,6 +3,7 @@ import RegulatoryFooter from '../../../../common/RegulatoryFooter';
 import NavBar2 from '../../../../common/Navbar2';
 import Transactions from '../../../Dashboard/TransactionList';
 import SideMenu from '../../../Dashboard/SideMenu';
+import './TransactionHistory.css'
 
 const TransactionContainer = styled.div`
  display: flex;
@@ -12,7 +13,7 @@ export default function Transaction() {
 
   return (
     
-    <div style={{"top": "0" }}>
+    <div style={{"top": "0" }} className='Transaction-History'>
       <div style={{ background: "#fff" }}>
       <NavBar2 />
     </div>
