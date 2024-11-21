@@ -15,7 +15,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/simple/banking")
-public class BankingController {
+public class  BankingController {
 
     @Autowired
     private CustomerService customerService;
