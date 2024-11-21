@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-
 import './Deposit.css';
 import ContentMain from './ContentMain/ContentMain';
 import RegulatoryFooter from '../../../../common/RegulatoryFooter';

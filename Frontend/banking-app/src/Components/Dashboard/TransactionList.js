@@ -80,6 +80,7 @@ function Transactions() {
         <TransactionAmount>₹3,670</TransactionAmount>
       </Transaction>
     </TransactionsContainer>
+     
   );
 }
 

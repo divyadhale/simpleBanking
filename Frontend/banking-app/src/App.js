@@ -11,6 +11,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import Home from "./Components/Home";
 import LoginPage from "./Components/layout/LogPage/Loginpage";
 import Transactions from "./Components/Dashboard/TransactionList";
+import Transaction from "./Components/layout/Main/TransactionHistory/TransactionHistory";
 import Withdraw from "./Components/Cards/Withdraw/Withdraw";
 import Profile from "./Components/Profile";
 import Deposit from "./Components/layout/Main/Deposit/Deposit";
@@ -45,7 +46,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/deposits" element={<Deposit />} />
-            <Route path="/transaction-history" element={<Transactions />} />
+            <Route path="/transaction" element={<Transactions />} />
+            <Route path="/transaction-history" element={<Transaction />} />
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/user-profile" element={<Profile />} />
             <Route path="/register" element={<Register />} />
