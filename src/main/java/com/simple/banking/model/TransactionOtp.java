@@ -26,6 +26,16 @@ public class TransactionOtp {
 
 	private LocalDateTime timestamp;
 
+	private String transactionType;
+
+	public String getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -85,7 +95,7 @@ public class TransactionOtp {
 	public TransactionOtp() {
 	}
 
-	public TransactionOtp(LocalDateTime timestamp, String otp, double closingBalance, double deposit, double withdraw, Long customerId, Long id) {
+	public TransactionOtp(LocalDateTime timestamp, String otp, double closingBalance, double deposit, double withdraw, Long customerId, Long id,String transactionType) {
 		this.timestamp = timestamp;
 		this.otp = otp;
 		this.closingBalance = closingBalance;
@@ -93,5 +103,6 @@ public class TransactionOtp {
 		this.withdraw = withdraw;
 		this.customerId = customerId;
 		this.id = id;
+		this.transactionType=transactionType;
 	}
 }

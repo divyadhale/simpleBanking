@@ -57,6 +57,7 @@ public class BankingService {
             transaction.setWithdraw(transactionOtp.getWithdraw());
             transaction.setClosingBalance(transactionOtp.getClosingBalance());
             transaction.setTimestamp(LocalDateTime.now());
+            transaction.setTransactionType(transactionOtp.getTransactionType());
             transactionRepository.save(transaction);
 
             customer.setCurrentbalance(transactionOtp.getClosingBalance());
@@ -106,6 +107,7 @@ public class BankingService {
             transactionOtp.setClosingBalance(customer.getCurrentbalance()+ amount);
             transactionOtp.setTimestamp(LocalDateTime.now());
             transactionOtp.setOtp(verificationCode);
+            transactionOtp.setTransactionType("Deposit");
             transactionOtpRepository.save(transactionOtp);
             String otpSentMessage ="";
             try {
@@ -146,7 +148,7 @@ public class BankingService {
             transactionOtp.setClosingBalance(customer.getCurrentbalance()- amount);
             transactionOtp.setTimestamp(LocalDateTime.now());
             transactionOtp.setOtp(verificationCode);
-
+            transactionOtp.setTransactionType("Withdraw");
             transactionOtpRepository.save(transactionOtp);
             String otpSentMessage ="";
             try {

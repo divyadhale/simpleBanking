@@ -25,6 +25,16 @@ public class Transaction {
 
 	private LocalDateTime timestamp;
 
+	private String transactionType;
+
+	public String getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -76,12 +86,13 @@ public class Transaction {
 	public Transaction() {
 	}
 
-	public Transaction(LocalDateTime timestamp, double closingBalance, double deposit, double withdraw, Customer customer, int id) {
+	public Transaction(LocalDateTime timestamp, double closingBalance, double deposit, double withdraw, Customer customer, int id,String transactionType) {
 		this.timestamp = timestamp;
 		this.closingBalance = closingBalance;
 		this.deposit = deposit;
 		this.withdraw = withdraw;
 		this.customer = customer;
 		this.id = id;
+		this.transactionType=transactionType;
 	}
 }
