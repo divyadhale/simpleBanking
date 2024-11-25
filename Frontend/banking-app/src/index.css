@@ -16,4 +16,13 @@ code {
   position: absolute;
   bottom: 0;
   width: 80%;
+  display: flex;
+      align-items: center;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #d0011b;
+      background-color: #ffffff;
+      text-decoration: none;
+      cursor: auto;
+      transition: background-color 1s;
 }
