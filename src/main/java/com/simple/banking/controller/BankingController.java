@@ -91,5 +91,10 @@ public class  BankingController {
        			return ResponseEntity.internalServerError().body("An error Occurred . Please try again");
        }
     }
+
+    @GetMapping("/session-expired")
+    public String sessionExpired() {
+        return "session-expired";
+    }
 }
 
