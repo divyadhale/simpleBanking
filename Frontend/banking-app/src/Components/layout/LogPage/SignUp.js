@@ -23,9 +23,10 @@ function SignUpForm() {
   let timerInterval;
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const updatedValue = name === "panNumber" ? value.toUpperCase(): value;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: updatedValue
     }));
   };
 
