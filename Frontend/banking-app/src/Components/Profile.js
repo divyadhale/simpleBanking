@@ -49,7 +49,7 @@ const Profile = () => {
       </div>
       <ProfileContainer>
         <SideMenu/>
-        <div className='main-content'>
+        <div className='main-contents'>
           {/* <ContentTop /> */}
           <div>
             <p>Name : {name}</p>

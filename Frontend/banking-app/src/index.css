@@ -19,8 +19,12 @@ code {
   display: flex;
 }
 .LogoutSection{
-  position: relative;
-  bottom: 0;
-  width: 80%;
   display: flex;
+      position: absolute;
+      font-size: 16px;
+      color: #333;
+      background-color: white;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
 }
