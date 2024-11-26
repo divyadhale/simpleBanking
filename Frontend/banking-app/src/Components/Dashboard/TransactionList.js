@@ -18,7 +18,8 @@ const Transaction = styled.div`
     border-bottom: 1px solid #eee;
     margin-bottom: 20px;
     background: rgb(234, 234, 247);
-    width: 70vw;
+    width: 100%;
+    height: 100%
   &:last-child {
     border-bottom: none;
   }
