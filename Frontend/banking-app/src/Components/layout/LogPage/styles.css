@@ -112,9 +112,11 @@ button:focus {
 input:focus {
   border: 1px solid blue;
 }
+
 input:invalid:focus {
   border: 1px solid red;
 }
+
 input:invalid {
   border: 1px solid red;
 }
@@ -147,6 +149,7 @@ input:invalid {
   padding: 18px;
   font-size: 12.5px;
 }
+
 .register-icon {
   color: red;
   margin-left: 8px;
@@ -171,7 +174,7 @@ button.checkbutton {
   transition: transform 80ms ease-in;
 }
 
-button.signupbutton{
+button.signupbutton {
   text-align: right;
   border-radius: 2px;
   border: 1px solid #db0011;
@@ -471,8 +474,10 @@ footer a {
   font-weight: 400;
   margin-left: 5px;
   font-family: sans-serif;
+  margin: 15px 15px;
 }
-.input-fields{
+
+.input-fields {
   width: max-content;
   margin: 20px;
 }
@@ -482,12 +487,13 @@ form {
   flex-direction: column;
   width: 100%;
 }
- 
+
 .reg-header-container {
   display: flex;
   justify-content: flex-start;
+  padding-bottom: 18px;
 }
- 
+
 .reg-form-group1 {
   display: flex;
   flex-direction: column;
@@ -495,32 +501,47 @@ form {
   padding-top: 30px;
   padding-bottom: 1px;
 }
- 
+
 .reg-form-group1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
- 
+
+.reg-form-group2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 1px;
+}
+
+.reg-form-group2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .reg-label-container {
   width: 100%;
   text-align: start;
 }
- 
+
 .reg-label {
   font-size: 12px;
   font-family: "Montserrat", sans-serif;
 
 }
+
 .reg-container {
-    background-color: #fff;
-    border-radius: 10px;
-    width: 500px;
-    max-width: 100%;
-    padding: 40px;
-    position: relative;
-  }
- 
+  background-color: #fff;
+  border-radius: 10px;
+  width: 500px;
+  max-width: 100%;
+  padding: 40px;
+  position: relative;
+}
+
 input {
   background-color: #eee;
   border: 1px solid #929292;
@@ -528,6 +549,7 @@ input {
   margin: 8px 0;
   width: 100%;
 }
+
 .reg-button-container {
   display: flex;
   justify-content: flex-end;
@@ -536,6 +558,7 @@ input {
   padding-top: 18px;
   width: 440px;
 }
+
 input.RegInput {
   background-color: #ffffff;
   border: 1px solid #929292;
@@ -546,10 +569,92 @@ input.RegInput {
   margin: 8px 0;
   width: 100%;
 }
-p.head-text{
+
+p.head-text {
   font-weight: 400;
   margin: 50;
   padding: 0;
   font-size: 28px;
   font-family: "Montserrat", sans-serif;
+}
+
+/* Input container to position icons */
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Base styles for input field */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  padding-right: 30px;
+  /* Leave space for the icon */
+  border: 2px solid #929292;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  box-shadow: none;
+  margin: 8px 0;
+}
+
+/* Error state */
+.input-container.error .input-field {
+  border-color: red;
+  background-color: #ffffff;
+  /* Light red background */
+}
+
+.input-container.error .error-icon {
+  color: red;
+}
+
+/* Valid state */
+.input-container.valid .input-field {
+  border-color: green;
+  background-color: #ffffff;
+  /* Light green background */
+}
+
+.input-container.valid .valid-icon {
+  color: green;
+}
+
+/* Positioning the icons */
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  pointer-events: none;
+  padding: 4px;
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.validation-error {
+  color: #db0011;
+  font-size: 12px;
+  margin-bottom: 10px;
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  text-align: start;
+}
+
+.valid {
+  color: green;
+  font-size: 12px;
+  margin-bottom: 10px;
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  text-align: start;
 }
