@@ -604,7 +604,7 @@ p.head-text {
 /* Error state */
 .input-container.error .input-field {
   border-color: red;
-  background-color: #ffe6e6;
+  background-color: #ffffff;
   /* Light red background */
 }
 
@@ -615,7 +615,7 @@ p.head-text {
 /* Valid state */
 .input-container.valid .input-field {
   border-color: green;
-  background-color: #e6ffe6;
+  background-color: #ffffff;
   /* Light green background */
 }
 
