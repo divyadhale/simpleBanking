@@ -58,6 +58,24 @@ body {
     font-weight: bolder;
   }
 
+  .profile-field {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .profile-field-1>div {
+    margin-left: 20px;
+    padding: 10px;
+  }
+
+  .profile-field-2>div {
+    margin-left: 10em;
+    padding: 10px;
+  }
+
   /* Responsive Design */
   @media (max-width: 768px) {
     .ProfileContainer {

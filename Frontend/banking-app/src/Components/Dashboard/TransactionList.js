@@ -10,7 +10,6 @@ const TransactionsContainer = styled.div`
   justify-content: space-evenly;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 80%;
 `;
 
 const Transaction = styled.div`
@@ -127,7 +126,7 @@ function Transactions() {
         <TransactionAmount>{el.deposit}</TransactionAmount>
         <TransactionClosingBalance>{el.closingBalance}</TransactionClosingBalance>
       </Transaction>)
-      : (<Transaction>
+      : (<Transaction key={i}>
         <TransactionIcon><PiHandDepositLight size={25}  color='red'/></TransactionIcon>
         <TransactionName>{el.transactionType} Successful</TransactionName>
         <TransactionAmount>{el.withdraw}</TransactionAmount>

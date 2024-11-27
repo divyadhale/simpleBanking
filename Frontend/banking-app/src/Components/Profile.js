@@ -50,14 +50,26 @@ const Profile = () => {
       <ProfileContainer>
         <SideMenu/>
         <div className='main-contents'>
-          <div>
-            <p>Name : {name}</p>
-            <p>Customer ID   :  {customerId}</p>
-            <p>Email Address  : {email}</p>
-            <p>Phone No      :  {phone}</p>
-            <p>Address       :  {address}</p>
-            <p>Addhar Number  : {addhar}</p>
-            <p>PAN Number   :  {pan}</p>
+          <div className='profile-field'>
+            <div className='profile-field-1'>
+              <div>Customer ID</div>
+              <div>Name</div>
+              <div>Email Id</div>
+              <div>Mobile no</div>
+              <div>Address</div>
+              <div>Pan no</div>
+              <div>Aadhaar no</div>
+            </div>
+
+            <div className='profile-field-2'>
+              <div>{customerId}</div>
+              <div>{name}</div>
+              <div>{email}</div>
+              <div>{phone}</div>
+              <div>{address}</div>
+              <div>{pan}</div>
+              <div>{addhar}</div>
+            </div>
           </div>
         </div>
       </ProfileContainer>

@@ -19,7 +19,9 @@ export default function Transaction() {
     </div>
       <TransactionContainer>
         <SideMenu />
-        <Transactions/>
+        <div style={{"width": "100%", "flex": "1"}}>
+          <Transactions/>
+        </div>
       </TransactionContainer>
       <RegulatoryFooter />
       </div>

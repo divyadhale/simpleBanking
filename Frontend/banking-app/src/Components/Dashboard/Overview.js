@@ -4,14 +4,10 @@ import axios from 'axios';
 
 const OverviewContainer = styled.div`
   display: flex;
-  background-color: grey;;
-  margin: 20px;
   gap: 20px;
   padding: 20px;
   justify-content: space-between;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-  width: 90%;
 `;
 
 const AccountBalance = styled.div`
