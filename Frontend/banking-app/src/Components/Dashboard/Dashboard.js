@@ -48,7 +48,7 @@ function Dashboard() {
           </MainContent>
           <RightSidebar>
             {/* <QuickTransfers /> */}
-            <Cards />
+            {/* <Cards /> */}
           </RightSidebar>
         </DashboardContent>
       </DashboardContainer>
