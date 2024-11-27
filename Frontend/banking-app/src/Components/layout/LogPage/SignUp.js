@@ -133,71 +133,49 @@ function SignUpForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (formData.password !== formData.confirmPassword) {
-    //   Swal.fire({
-    //     title: "Passwords do not match.",
-    //     timer: 2000,
-    //     timerProgressBar: true,
-    //     willClose: () => {
-    //       clearInterval(timerInterval);
-    //     }
-    //   })
-    //   return; 1000000000 account_number
-    // }
-    try {
-      // setError(null);
-      // setSuccess(false);
-      await axios.post('http://localhost:8080/api/simple/banking/register', formData).then((resp) => {
-        if (resp.status === 200) {
-          // setSuccess(true);
-          setFormData({
-            firstName: '',
-            lastName: '',
-            emailId: '',
-            password: '',
-            address: '',
-            aadharNumber: '',
-            panNumber: ''
-          });
-          Swal.fire({
-            title: "Registration Successful",
-            timer: 2000,
-            timerProgressBar: true,
-            willClose: () => {
-              clearInterval(timerInterval);
-            }
-          }).then((result) => {
-            if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
-              navigate('/login');
-            }
-          })
+    let regPostReq = new Promise(async (resolve, reject) => {
+      await axios.post("http://localhost:8080/api/simple/banking/register", formData).then(res => {
+        if(res.status === 200) {
+          resolve(true);
         }
-        else {
-          console.log("++++++++++++++++++", resp)
-          // Swal.fire({
-          //   title: "Registration Successful",
-          //   timer: 2000,
-          //   timerProgressBar: true,
-          //   willClose: () => {
-          //     clearInterval(timerInterval);
-          //   }
-          // }).then((result) => {
-          //   if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
-          //     navigate('/login');
-          //   }
-          // })
+      }).catch(res => {
+        reject(res.response?.data?.message)
+      })
+    })
+
+    regPostReq.then(res => {
+      setFormData({
+        firstName: '',
+        lastName: '',
+        emailId: '',
+        password: '',
+        address: '',
+        aadharNumber: '',
+        panNumber: ''
+      });
+      Swal.fire({
+        title: "Registration Successful",
+        timer: 2000,
+        timerProgressBar: true,
+        willClose: () => {
+          clearInterval(timerInterval);
+        }
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+          navigate('/login');
         }
       })
-    } catch (error) {
+    })
+    .catch(res => {
       Swal.fire({
-        title: "Something went wrong please try after sometime.",
+        title: res,
         timer: 2000,
         timerProgressBar: true,
         willClose: () => {
           clearInterval(timerInterval);
         }
       })
-    }
+    })
   };
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();

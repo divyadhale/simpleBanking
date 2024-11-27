@@ -49,11 +49,11 @@ function Overview() {
         <BalanceLabel>Balance</BalanceLabel>
       </AccountBalance>
       <AccountBalance>
-        <BalanceAmount>₹ 9,900</BalanceAmount>
+        <BalanceAmount>₹ 0</BalanceAmount>
         <BalanceLabel>Credit Card</BalanceLabel>
       </AccountBalance>
       <AccountBalance>
-        <BalanceAmount>₹ 120,012</BalanceAmount>
+        <BalanceAmount>₹ 0</BalanceAmount>
         <BalanceLabel>Loan Amount</BalanceLabel>
       </AccountBalance>
       <AccountBalance>

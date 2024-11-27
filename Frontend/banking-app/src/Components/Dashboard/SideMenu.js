@@ -109,7 +109,7 @@ function SideMenu() {
       <div className="LogoutSection">
         <Divider />
         <StickToBottom to="/SignIn"
-          active={'Logout' === activeItem} onClick={() => handleMenuClick('Logout')}>
+          active={'Logout' === activeItem} onClick={() => {handleMenuClick('Logout'); localStorage.removeItem("customerId")}}>
           <FaSignOutAlt /> Logout
         </StickToBottom>
       </div>
