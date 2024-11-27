@@ -26,6 +26,7 @@ public class Customer {
 
     @Email
     @NotNull(message = "Email is required.")
+    @Column(unique = true)
     private String emailId;
     @NotNull(message = "Password is required.")
     private String password;

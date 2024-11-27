@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FaInbox, FaChartLine, FaBell, FaHome, FaUser } from 'react-icons/fa';
+import { FaInbox, FaChartLine, FaBell, FaHome, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { Divider } from '@mui/material';
 import '../../index.css';
 
@@ -106,6 +106,14 @@ function SideMenu() {
           <FaUser /> Profile
         </StickToBottom>
       </div>
+      <div className="LogoutSection">
+        <Divider />
+        <StickToBottom to="/SignIn"
+          active={'Logout' === activeItem} onClick={() => {handleMenuClick('Logout'); localStorage.removeItem("customerId")}}>
+          <FaSignOutAlt /> Logout
+        </StickToBottom>
+      </div>
+      
     </SideMenuContainer>
   );
 }

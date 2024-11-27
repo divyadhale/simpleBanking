@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-
+import './Profile.css';
 import NavBar2 from '../common/Navbar2';
 import SideMenu from '../Components/Dashboard/SideMenu';
 import RegulatoryFooter from '../common/RegulatoryFooter';
@@ -29,10 +29,10 @@ const Profile = () => {
       try {
         await axios.get(`http://localhost:8080/api/simple/banking/profile?customerId=${JSON.parse(customerId)}`).then(res => {
           setName(res.data.firstName + " " + res.data.lastName)
-          setEmail(res.data.emailId),
-          setPhone(res.data.contact),
-          setAddress(res.data.address),
-          setAddhar(res.data.aadharNumber),
+          setEmail(res.data.emailId)
+          setPhone(res.data.contact)
+          setAddress(res.data.address)
+          setAddhar(res.data.aadharNumber)
           setPan(res.data.panNumber)
         })
       } catch (err) {
@@ -49,16 +49,15 @@ const Profile = () => {
       </div>
       <ProfileContainer>
         <SideMenu/>
-        <div className='main-content'>
-          {/* <ContentTop /> */}
+        <div className='main-contents'>
           <div>
-            <p>Name: {name}</p>
-            <p>Customer ID: {customerId}</p>
-            <p>Email Address: {email}</p>
-            <p>Phone No: {phone}</p>
-            <p>Address: {address}</p>
-            <p>Addhar Number: {addhar}</p>
-            <p>PAN Number: {pan}</p>
+            <p>Name : {name}</p>
+            <p>Customer ID   :  {customerId}</p>
+            <p>Email Address  : {email}</p>
+            <p>Phone No      :  {phone}</p>
+            <p>Address       :  {address}</p>
+            <p>Addhar Number  : {addhar}</p>
+            <p>PAN Number   :  {pan}</p>
           </div>
         </div>
       </ProfileContainer>
