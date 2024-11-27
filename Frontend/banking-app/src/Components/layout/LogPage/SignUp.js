@@ -123,7 +123,7 @@ function SignUpForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const updatedValue = name === "panNumber" ? value.toUpperCase(): value;
+    const updatedValue = name === "panNumber" ? value.toUpperCase() : value;
     setFormData((prevData) => ({
       ...prevData,
       [name]: updatedValue
@@ -133,6 +133,10 @@ function SignUpForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const newErrors = { ...errors };
+    Object.keys(formData).forEach((field) => {
+      validateField(field, formData[field], newErrors);
+    });
     // if (formData.password !== formData.confirmPassword) {
     //   Swal.fire({
     //     title: "Passwords do not match.",
@@ -144,61 +148,73 @@ function SignUpForm() {
     //   })
     //   return; 1000000000 account_number
     // }
-    try {
-      // setError(null);
-      // setSuccess(false);
-      await axios.post('http://localhost:8080/api/simple/banking/register', formData).then((resp) => {
-        if (resp.status === 200) {
-          // setSuccess(true);
-          setFormData({
-            firstName: '',
-            lastName: '',
-            emailId: '',
-            password: '',
-            address: '',
-            aadharNumber: '',
-            panNumber: ''
-          });
-          Swal.fire({
-            title: "Registration Successful",
-            timer: 2000,
-            timerProgressBar: true,
-            willClose: () => {
-              clearInterval(timerInterval);
-            }
-          }).then((result) => {
-            if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
-              navigate('/login');
-            }
-          })
-        }
-        else {
-          console.log("++++++++++++++++++", resp)
-          // Swal.fire({
-          //   title: "Registration Successful",
-          //   timer: 2000,
-          //   timerProgressBar: true,
-          //   willClose: () => {
-          //     clearInterval(timerInterval);
-          //   }
-          // }).then((result) => {
-          //   if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
-          //     navigate('/login');
-          //   }
-          // })
-        }
-      })
-    } catch (error) {
+    if (Object.keys(newErrors).length === 0) {
+      try {
+        // setError(null);
+        // setSuccess(false);
+        await axios.post('http://localhost:8080/api/simple/banking/register', formData).then((resp) => {
+          if (resp.status === 200) {
+            // setSuccess(true);
+            setFormData({
+              firstName: '',
+              lastName: '',
+              emailId: '',
+              password: '',
+              address: '',
+              aadharNumber: '',
+              panNumber: ''
+            });
+            Swal.fire({
+              title: "Registration Successful",
+              timer: 2000,
+              timerProgressBar: true,
+              willClose: () => {
+                clearInterval(timerInterval);
+              }
+            }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+                navigate('/login');
+              }
+            })
+          }
+          else {
+            console.log("++++++++++++++++++", resp)
+            // Swal.fire({
+            //   title: "Registration Successful",
+            //   timer: 2000,
+            //   timerProgressBar: true,
+            //   willClose: () => {
+            //     clearInterval(timerInterval);
+            //   }
+            // }).then((result) => {
+            //   if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+            //     navigate('/login');
+            //   }
+            // })
+          }
+        })
+      } catch (error) {
+        Swal.fire({
+          title: "Something went wrong please try after sometime.",
+          timer: 2000,
+          timerProgressBar: true,
+          willClose: () => {
+            clearInterval(timerInterval);
+          }
+        })
+      }
+
+    }
+    else {
+      setErrors(newErrors);
       Swal.fire({
-        title: "Something went wrong please try after sometime.",
+        title: "Please fix the errors before submitting" ,
         timer: 2000,
         timerProgressBar: true,
-        willClose: () => {
-          clearInterval(timerInterval);
-        }
-      })
+      });
     }
   };
+
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const handleCancel = () => {

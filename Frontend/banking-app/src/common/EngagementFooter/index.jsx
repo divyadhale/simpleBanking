@@ -7,7 +7,7 @@ function EngagementFooter() {
     <> 
     <div className="engagementFooter-main">
       <div className="child-section">
-        <FontAwesomeIcon className="icon" icon={faPhone} />
+        <FontAwesomeIcon className="footer-icon" icon={faPhone} />
         <div className="info-section">
           <div>Contact HSBC</div>
           <div style={{"width": "70%"}}>
@@ -18,7 +18,7 @@ function EngagementFooter() {
       </div>
 
       <div className="child-section">
-        <FontAwesomeIcon className="icon" icon={faMapMarker} />
+        <FontAwesomeIcon className="footer-icon" icon={faMapMarker} />
         <div className="info-section">
           <div>Find a branch or ATM</div>
           <div style={{"width": "70%"}}>
@@ -29,7 +29,7 @@ function EngagementFooter() {
       </div>
 
       <div className="child-section">
-        <FontAwesomeIcon className="icon" icon={faInfo} />
+        <FontAwesomeIcon className="footer-icon" icon={faInfo} />
         <div className="info-section">
           <div>Frequently Asked Questions</div>
           <div style={{"width": "70%"}}>
@@ -40,7 +40,7 @@ function EngagementFooter() {
       </div>
 
       <div className="child-section">
-        <FontAwesomeIcon className="icon" icon={faGlobe} />
+        <FontAwesomeIcon className="footer-icon" icon={faGlobe} />
         <div className="info-section">
           <div>About HSBC</div>
           <div style={{"width": "70%"}}>
