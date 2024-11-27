@@ -104,7 +104,8 @@ function Transactions() {
       await axios.get(`http://localhost:8080/api/simple/banking/history?customerId=${JSON.parse(customerId)}`)
         .then(res => {
           if (res.data.length) {
-            setTransList(res.data)
+            let list = res.data;
+            setTransList(list.reverse())
           }
         })
     }
@@ -122,13 +123,13 @@ function Transactions() {
       { transList.length ? transList.map(( el, i ) => (
         el.transactionType === "Deposit"?
         (<Transaction key={i}>
-        <TransactionIcon><PiHandDepositLight size={25}  color='green'/></TransactionIcon>
+        <TransactionIcon><PiHandWithdrawLight size={25} color='green'/></TransactionIcon>
         <TransactionName>{el.transactionType} Successful</TransactionName>
         <TransactionAmount>{el.deposit}</TransactionAmount>
         <TransactionClosingBalance>{el.closingBalance}</TransactionClosingBalance>
       </Transaction>)
       : (<Transaction>
-        <TransactionIcon><PiHandWithdrawLight size={25} color='red'/></TransactionIcon>
+        <TransactionIcon><PiHandDepositLight size={25}  color='red'/></TransactionIcon>
         <TransactionName>{el.transactionType} Successful</TransactionName>
         <TransactionAmount>{el.withdraw}</TransactionAmount>
         <TransactionClosingBalance>{el.closingBalance}</TransactionClosingBalance>
