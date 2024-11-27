@@ -1,11 +1,14 @@
 package com.simple.banking.service;
 
+import com.simple.banking.model.ApiResponse;
 import com.simple.banking.model.Customer;
 import com.simple.banking.repository.CustomerRepository;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +28,19 @@ public class CustomerService {
         return customer.get();
     }
 
-    public ResponseEntity<?> register(Customer customer) {
-        //customer.setPassword(passwordEncoder.encode(password));
+    public ResponseEntity<ApiResponse> register(Customer customer) {
         try {
             Customer user = customerRepository.save(customer);
-            return ResponseEntity.ok(user);
-        } catch(ConstraintViolationException cex){
-            logger.error("Constraint Violation ",cex);
-            return ResponseEntity.badRequest().body("Constraint Violation "+cex.getConstraintViolations().stream());
-        } catch(Exception ex){
-            logger.error("error occured ",ex);
-            return ResponseEntity.badRequest().body("error occured "+ex.getMessage());
+            ApiResponse response = new ApiResponse("success", HttpStatus.OK.value(), "Registration successful", user.getAccountNumber().toString());
+            return ResponseEntity.ok(response);
+        } catch (DataIntegrityViolationException ex) {
+            logger.error("Data Integrity Violation ", ex);
+            ApiResponse response = new ApiResponse("error", HttpStatus.BAD_REQUEST.value(), "Email ID already exists. Please use a different email.", null);
+            return ResponseEntity.badRequest().body(response);
+        } catch (Exception ex) {
+            logger.error("Error occurred ", ex);
+            ApiResponse response = new ApiResponse("error", HttpStatus.BAD_REQUEST.value(), "An unexpected error occurred. Please try again later.", null);
+            return ResponseEntity.badRequest().body(response);
         }
     }
 

@@ -6,7 +6,7 @@ const TransactionsContainer = styled.div`
   background-color: #fff;
   padding: 20px;
   margin-top: 20px;
-  margin-left: 20px;
+  justify-content: space-evenly;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
@@ -18,7 +18,8 @@ const Transaction = styled.div`
     border-bottom: 1px solid #eee;
     margin-bottom: 20px;
     background: rgb(234, 234, 247);
-    width: 70vw;
+    width: 100%;
+    height: 100%
   &:last-child {
     border-bottom: none;
   }
