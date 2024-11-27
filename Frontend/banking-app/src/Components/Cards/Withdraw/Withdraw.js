@@ -88,7 +88,7 @@ export default function Withdraw() {
     }
     try {
       setIsLoading(true);
-      const response = await axios
+      await axios
         .post(
           `http://localhost:8080/api/simple/banking/withdraw?customerId=${JSON.parse(
             customerId
@@ -111,30 +111,6 @@ export default function Withdraw() {
             }
           });
         });
-      // if (response.data !== "Insufficient Balance") {
-      //   Swal.fire({
-      //     title: "Withdraw Successful",
-      //     timer: 2000,
-      //     timerProgressBar: true,
-      //     willClose: () => {
-      //       clearInterval(timerInterval);
-      //     }
-      //   }).then((result) => {
-      //     if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
-      //       navigate('/home');
-      //     }
-      //   })
-      // }
-      // else {
-      //   Swal.fire({
-      //     title: "Insufficient Balance",
-      //     timer: 2000,
-      //     timerProgressBar: true,
-      //     willClose: () => {
-      //       clearInterval(timerInterval);
-      //     }
-      //   })
-      // }
     } catch (err) {
       console.log("Error during transaction: ", err);
     } finally {
