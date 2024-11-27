@@ -105,13 +105,9 @@ function SideMenu() {
           active={'UserProfile' === activeItem} onClick={() => handleMenuClick('UserProfile')}>
           <FaUser /> Profile
         </StickToBottom>
-      </div>
-      <div className="LogoutSection">
-        <Divider />
-        <StickToBottom to="/SignIn"
-          active={'Logout' === activeItem} onClick={() => {handleMenuClick('Logout'); localStorage.removeItem("customerId")}}>
-          <FaSignOutAlt /> Logout
-        </StickToBottom>
+      <StickToBottom to="/logout" 
+      active={'Logout' === activeItem} onClick={() => handleMenuClick('Logout')}> 
+      <FaSignOutAlt /> Logout </StickToBottom>
       </div>
       
     </SideMenuContainer>

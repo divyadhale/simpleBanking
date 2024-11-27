@@ -17,8 +17,6 @@ const DashboardContent = styled.div`
   flex: 1;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 20px;
-  padding: 20px 20px 10em;
   background-color: #f4f5f7;
 `;
 

@@ -6,10 +6,11 @@ import { PiHandWithdrawLight, PiHandDepositLight } from "react-icons/pi";
 const TransactionsContainer = styled.div`
   background-color: #fff;
   padding: 20px;
-  margin-top: 20px;
+  margin: 20px;
   justify-content: space-evenly;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
 `;
 
 const Transaction = styled.div`
@@ -33,7 +34,6 @@ const TransactionHead = styled.div`
     border-bottom: 1px solid #eee;
     margin-bottom: 20px;
     background: white;
-    width: 70vw;
   &:last-child {
     border-bottom: none;
   }
@@ -42,7 +42,6 @@ const TransactionHead = styled.div`
 const NoTransactionHead = styled.div`
   display: flex;
   background: white;
-  width: 70vw;
   justify-content: space-evenly;
 `
 

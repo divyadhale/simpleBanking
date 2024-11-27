@@ -6,6 +6,7 @@ const CardsContainer = styled.div`
   padding: 20px;
   border-radius: 8px;
   color: #fff;
+  margin:20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
@@ -17,7 +18,6 @@ const CardTitle = styled.h3`
 const CardDetails = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
 `;
 
 const CardText = styled.p`
