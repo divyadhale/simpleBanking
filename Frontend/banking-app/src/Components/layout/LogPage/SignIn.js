@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -10,6 +10,14 @@ function SignInForm() {
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
   let timerInterval;
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const decode = token ? atob(token) : undefined;
+    if(decode) {
+      navigate("/dashboard");
+    }
+  })
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
