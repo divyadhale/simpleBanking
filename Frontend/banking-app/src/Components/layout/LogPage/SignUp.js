@@ -5,11 +5,12 @@ import Modal from 'react-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
+import InputField from "./InputField";
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
     firstName: '',
-    lastName:'',
+    lastName: '',
     emailId: '',
     password: '',
     address: '',
@@ -19,14 +20,115 @@ function SignUpForm() {
   });
   // const [error, setError] = useState(null);
   // const [success, setSuccess] = useState(false);
-
+  const [errors, setErrors] = useState({});
+  const [validM, setvalidM] = useState({});
   let timerInterval;
+  const validateField = (name, value) => {
+    const newErrors = { ...errors };
+    const validMessages = { ...validM };
+    // First Name
+    if (name === "firstName") {
+      if (!value.trim()) {
+        newErrors.firstName = "First name is required.";
+      } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+        newErrors.firstName = "First name must contain only letters.";
+      } else {
+        delete newErrors.firstName;
+        validMessages.firstName = "First name is valid.";
+      }
+    }
+    // Last Name
+    if (name === "lastName") {
+      if (!value.trim()) {
+        newErrors.lastName = "Last name is required.";
+      } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+        newErrors.lastName = "Last name must contain only letters.";
+      } else {
+        delete newErrors.lastName;
+        validMessages.lastName = "Last name is valid.";
+      }
+    }
+    // Email
+    if (name === "emailId") {
+      if (!value.trim()) {
+        newErrors.emailId = "Email is required.";
+      } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
+        newErrors.emailId = "Invalid email format.";
+      } else {
+        delete newErrors.emailId;
+        validMessages.emailId = "Email is valid.";
+      }
+    }
+    // Password
+    if (name === "password") {
+      if (!value.trim()) {
+        newErrors.password = "Password is required.";
+      } else if (value.length < 7 || value.length > 15) {
+        newErrors.password = "Password must be 7-15 characters long.";
+      } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{7,15}$/.test(value)) {
+        newErrors.password =
+          "Password must contain at least one letter, one number, and only allowed special characters @$!%*?&.";
+      } else {
+        delete newErrors.password;
+        validMessages.password = "Password is valid.";
+      }
+    }
+    // Address
+    if (name === "address") {
+      if (!value.trim()) {
+        newErrors.address = "Address is required.";
+      } else if (value.length < 5) {
+        newErrors.address = "Address must be at least 5 characters long.";
+      } else {
+        delete newErrors.address;
+        validMessages.address = "Address is valid.";
+      }
+    }
+    // PAN Card
+    if (name === "panNumber") {
+      if (!value.trim()) {
+        newErrors.panNumber = "PAN number is required.";
+      } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value)) {
+        newErrors.panNumber = "Invalid PAN format (e.g., ABCDE1234F).";
+      } else {
+        delete newErrors.panNumber;
+        validMessages.panNumber = "PAN number is valid.";
+      }
+    }
+    // Aadhaar Card
+    if (name === "aadharNumber") {
+      if (!value.trim()) {
+        newErrors.aadharNumber = "Aadhaar number is required.";
+      } else if (!/^\d{12}$/.test(value)) {
+        newErrors.aadharNumber = "Aadhaar number must be a 12-digit number.";
+      } else {
+        delete newErrors.aadharNumber;
+        validMessages.aadharNumber = "Aadhaar number is valid.";
+      }
+    }
+    // Contact Number
+    if (name === "contact") {
+      if (!value.trim()) {
+        newErrors.contact = "Contact number is required.";
+      } else if (!/^\d{10}$/.test(value)) {
+        newErrors.contact = "Contact number must be a 10-digit number.";
+      } else {
+        delete newErrors.contact;
+        validMessages.contact = "Contact number is valid.";
+      }
+    }
+    setErrors(newErrors);
+    setvalidM(validMessages);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const updatedValue = name === "panNumber" ? value.toUpperCase(): value;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: updatedValue
     }));
+    validateField(name, updatedValue);
   };
 
   const handleSubmit = async (e) => {
@@ -122,144 +224,99 @@ function SignUpForm() {
   return (
     <div className="sign-up-container">
       <div className="reg-header-container header-register">
-          <p className="head-text">Register for online banking</p>
-        </div>
-        <form
-          onSubmit={handleSubmit}
-          autoComplete="off"
-          style={{
-            display: "flex",
-            justifyContent: "unset",
-            alignItems: "unset",
-            marginTop:"10px"
-          }}
-        >
-          <div className="form-group reg-form-group1">
-            <div className="reg-label-container">
-              <label htmlFor="firstName" className="reg-label">
-                Please enter your First name
-              </label>
-            </div>
-            <input
-            className="RegInput"
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-            />
-          </div>
-          <div className="form-group reg-form-group2">
-            <div className="reg-label-container">
-              <label htmlFor="lastName" className="reg-label">
-                Please enter your Last name
-              </label>
-            </div>
-            <input
-            className="RegInput"
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-            />
-          </div>
-          <div className="form-group reg-form-group2">
-            <div className="reg-label-container">
-              <label htmlFor="emailId" className="reg-label">
-                Please enter your email
-              </label>
-            </div>
-            <input
-              className="RegInput"
-              type="email"
-              name="emailId"
-              value={formData.emailId}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group reg-form-group2">
-            <div className="reg-label-container">
-              <label htmlFor="password" className="reg-label">
-                Please enter your password
-              </label>
-            </div>
-            <input
-              className="RegInput"
-              type="password"
-              name="password"
-              // value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group reg-form-group2">
-            <div className="reg-label-container">
-              <label htmlFor="address" className="reg-label">
-                Please enter your address
-              </label>
-            </div>
-            <input
-              className="RegInput"
-              type="text"
-              name="address"
-              // value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group reg-form-group2">
-            <div className="reg-label-container">
-              <label htmlFor="panNumber" className="reg-label">
-                Please enter your PAN card number
-              </label>
-            </div>
-            <input
-              className="RegInput"
-              type="text"
-              name="panNumber"
-              value={formData.panNumber}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group reg-form-group2">
-            <div className="reg-label-container">
-              <label htmlFor="aadharNumber" className="reg-label">
-                Please enter your Aadhar number
-              </label>
-            </div>
-            <input
-              className="RegInput"
-              type="text"
-              name="aadharNumber"
-              value={formData.aadharNumber}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group reg-form-group2">
-            <div className="reg-label-container">
-              <label htmlFor="contactNo" className="reg-label">
-                Please enter your contact number
-              </label>
-            </div>
-            <input
-              className="RegInput"
-              type="text"
-              name="contact"
-              value={formData.contact}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <br />
-          <div className="reg-button-container">
+        <p className="head-text">Register for online banking</p>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        style={{
+          display: "flex",
+          justifyContent: "unset",
+          alignItems: "unset",
+          marginTop: "10px"
+        }}
+      >
+        {/* First Name */}
+        <InputField
+          label="First Name"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          error={errors.firstName}
+          validationMessage={errors.firstName}
+        />
+        {/* Last Name */}
+        <InputField
+          label="Last Name"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          error={errors.lastName}
+          validationMessage={errors.lastName}
+        />
+        {/* Email */}
+        <InputField
+          label="Email ID"
+          name="emailId"
+          type="email"
+          value={formData.emailId}
+          onChange={handleChange}
+          error={errors.emailId}
+          validationMessage={errors.emailId}
+        />
+        {/* Password */}
+        <InputField
+          label="Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          error={errors.password}
+          validationMessage={errors.password}
+        />
+        {/* Address */}
+        <InputField
+          label="Address"
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+          error={errors.address}
+          validationMessage={errors.address}
+        />
+        {/* PAN Number */}
+        <InputField
+          label="PAN Number"
+          name="panNumber"
+          value={formData.panNumber}
+          onChange={handleChange}
+          error={errors.panNumber}
+          validationMessage={errors.panNumber}
+        />
+        {/* Aadhaar Number */}
+        <InputField
+          label="Aadhaar Number"
+          name="aadharNumber"
+          value={formData.aadharNumber}
+          onChange={handleChange}
+          error={errors.aadharNumber}
+          validationMessage={errors.aadharNumber}
+        />
+        {/* Contact Number */}
+        <InputField
+          label="Contact Number"
+          name="contact"
+          value={formData.contact}
+          onChange={handleChange}
+          error={errors.contact}
+          validationMessage={errors.contact}
+        />
+
+        <br />
+        <div className="reg-button-container">
           <button type="submit" className="signupbutton">Sign Up</button>
           <button type="button" onClick={handleCancel} className="cancelbutton">Cancel</button>
-          </div>
-        </form>
+        </div>
+      </form>
 
       <Modal
         isOpen={showModal}

@@ -24,7 +24,7 @@ public class  BankingController {
     private BankingService bankingService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Validated @RequestBody Customer customer) {
+    public ResponseEntity<ApiResponse> register(@Validated @RequestBody Customer customer) {
         return customerService.register(customer);
     }
 
