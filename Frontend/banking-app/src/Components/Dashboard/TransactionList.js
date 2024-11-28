@@ -98,14 +98,17 @@ function Transactions() {
 
   useEffect(() => {
     async function fetchTransList() {
-      const customerId = localStorage.getItem('customerId');
-      await axios.get(`http://localhost:8080/api/simple/banking/history?customerId=${JSON.parse(customerId)}`)
+      const token = localStorage.getItem('token');
+    const customerId = token ? atob(token) : undefined;
+      if(customerId) {
+        await axios.get(`http://localhost:8080/api/simple/banking/history?customerId=${JSON.parse(customerId)}`)
         .then(res => {
           if (res.data.length) {
             let list = res.data;
             setTransList(list.reverse())
           }
         })
+      }
     }
     fetchTransList();
   }, [])

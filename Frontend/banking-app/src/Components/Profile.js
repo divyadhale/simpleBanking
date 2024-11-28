@@ -23,8 +23,10 @@ const Profile = () => {
 
   
   useEffect(() => {
-    const customerId = localStorage.getItem('customerId');
-    setCustomerId(JSON.parse(customerId));
+    const token = localStorage.getItem('token');
+    const customerId = token ? atob(token) : undefined;
+    if(customerId)
+      setCustomerId(JSON.parse(customerId));
     async function fetchProfile() {
       try {
         await axios.get(`http://localhost:8080/api/simple/banking/profile?customerId=${JSON.parse(customerId)}`).then(res => {

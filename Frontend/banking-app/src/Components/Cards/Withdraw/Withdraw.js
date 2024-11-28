@@ -27,8 +27,10 @@ export default function Withdraw() {
   let timerInterval;
 
   useEffect(() => {
-    const customerId = localStorage.getItem("customerId");
-    setCustomerId(customerId);
+    const token = localStorage.getItem('token');
+    const customerId = token ? atob(token) : undefined;
+    if(customerId)
+      setCustomerId(customerId);
   }, []);
 
   const cancelModal = () => {

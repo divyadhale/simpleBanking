@@ -18,7 +18,8 @@ export default function Deposit() {
   let timerInterval;
 
   useEffect(() => {
-    const customerId = localStorage.getItem("customerId");
+    const token = localStorage.getItem('token');
+    const customerId = token ? atob(token) : undefined;
     setCustomerId(customerId);
   }, []);
 

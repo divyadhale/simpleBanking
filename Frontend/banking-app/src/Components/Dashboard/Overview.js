@@ -33,10 +33,12 @@ function Overview() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const custId = localStorage.getItem('customerId');
-        await axios.get(`http://localhost:8080/api/simple/banking/balance/${JSON.parse(custId)}`).then(res => {
-          setBalance(res.data)
-        })
+        const token = localStorage.getItem('token');
+        const custId = token ? atob(token) : undefined;
+        if(custId)
+          await axios.get(`http://localhost:8080/api/simple/banking/balance/${JSON.parse(custId)}`).then(res => {
+            setBalance(res.data)
+          })
       } catch (err) {
         console.log('Error fetching balance', err);
       }

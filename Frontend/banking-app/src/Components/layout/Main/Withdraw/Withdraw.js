@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Withdraw(){const navigate = useNavigate();
 
     useEffect(()=>{
-        if(localStorage.getItem('accountNumber') == null){
+        if(atob(localStorage?.getItem('token')) == null){
             navigate('/*');
         }
     })

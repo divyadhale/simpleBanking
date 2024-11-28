@@ -32,10 +32,12 @@ function SignInForm() {
           "http://localhost:8080/api/simple/banking/login",
           { email, password }
         );
-        if (response.data.statusCode === 200) {
+        if (response.data.statusCode === 200 && response.data.accountNumber) {
+          let encode = btoa(response.data.accountNumber);
           localStorage.setItem(
-            "customerId",
-            JSON.stringify(response.data.accountNumber)
+            "token",
+            // JSON.stringify(response.data.accountNumber)
+            encode
           );
           Swal.fire({
             title: "Login Successful",

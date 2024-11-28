@@ -101,12 +101,12 @@ function SideMenu() {
       ))}
       <div className="profileSection">
         <Divider />
-        <StickToBottom to="/user-profile"
+        <StickToBottom to="/profile"
           active={'UserProfile' === activeItem} onClick={() => handleMenuClick('UserProfile')}>
           <FaUser /> Profile
         </StickToBottom>
       <StickToBottom to="/logout" 
-      active={'Logout' === activeItem} onClick={() => handleMenuClick('Logout')}> 
+      active={'Logout' === activeItem} onClick={() => localStorage.removeItem('token')}> 
       <FaSignOutAlt /> Logout </StickToBottom>
       </div>
       

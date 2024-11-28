@@ -9,7 +9,8 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const accnumber = localStorage.getItem('accountNumber');
+        const token = localStorage.getItem('token');
+        const accnumber = token ? atob(token) : undefined;
         const response = await axios.get(`http://localhost:8080/api/simple/banking/balance/${JSON.parse(accnumber)}`);
         setBalance(response.data)
       } catch (err) {

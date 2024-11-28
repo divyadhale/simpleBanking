@@ -10,8 +10,8 @@ export default function Homepage(){
   const navigate = useNavigate();
 
     useEffect(()=>{
-        if(localStorage.getItem('accountNumber') == null){
-            navigate('/*');
+        if(atob(localStorage?.getItem('token')) == null){
+          navigate('/*');
         }
     })
     return(
