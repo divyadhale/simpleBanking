@@ -48,4 +48,34 @@ public class CustomerService {
         return customerRepository.findById(accountNumber);
     }
 
+    // EditProfile
+	public ResponseEntity<ApiResponse> editProfile(Customer customer) {
+		 try {
+	      
+		 Customer user = customerRepository.findById(customer.getAccountNumber()).orElseThrow();
+		 	  
+		      user.setFirstName(customer.getFirstName());
+		      user.setLastName(customer.getLastName());
+		      user.setAadharNumber(customer.getAadharNumber());
+		      user.setAddress(customer.getAddress());
+		      user.setPanNumber(customer.getPanNumber());
+		      user.setEmailId(customer.getEmailId());
+		      user.setContact(customer.getContact());
+		      user.setPassword(customer.getPassword());
+		      
+		 	  customerRepository.save(user);
+	            ApiResponse response = new ApiResponse("success", HttpStatus.OK.value(), "Profile Update Successfully", user.getAccountNumber().toString());
+	            return ResponseEntity.ok(response);
+	        } catch (DataIntegrityViolationException ex) {
+	            logger.error("Data Integrity Violation ", ex);
+	            ApiResponse response = new ApiResponse("error", HttpStatus.BAD_REQUEST.value(), "Email ID already exists. Please use a different email.", null);
+	            return ResponseEntity.badRequest().body(response);
+	        } catch (Exception ex) {
+	            logger.error("Error occurred ", ex);
+	            ApiResponse response = new ApiResponse("error", HttpStatus.BAD_REQUEST.value(), "An unexpected error occurred. Please try again later.", null);
+	            return ResponseEntity.badRequest().body(response);
+	        }
+	}
+
+    
 }
