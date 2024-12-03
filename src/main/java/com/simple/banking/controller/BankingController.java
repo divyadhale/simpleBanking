@@ -29,7 +29,7 @@ public class  BankingController {
     }
 
     //EditProfile
-    @PostMapping("/editProfile")
+    @PutMapping("/editProfile")
     public ResponseEntity<ApiResponse> editProfile(@Validated @RequestBody Customer customer) {
         return customerService.editProfile(customer);
     }
