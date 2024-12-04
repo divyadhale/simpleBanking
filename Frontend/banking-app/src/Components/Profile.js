@@ -24,27 +24,68 @@ const Profile = () => {
     const customerId = token ? atob(token) : undefined;
     if (customerId) {
       setCustomerId(JSON.parse(customerId));
-      async function fetchProfile() {
-        try {
-          const res = await axios.get(
-            `http://localhost:8080/api/simple/banking/profile?customerId=${JSON.parse(
-              customerId
-            )}`
-          );
-          setName(res.data.firstName + " " + res.data.lastName);
-          setEmail(res.data.emailId);
-          setPhone(res.data.contact);
-          setAddress(res.data.address);
-          setAadhaar(res.data.aadharNumber);
-          setPan(res.data.panNumber);
-        } catch (err) {
-          console.error("Error fetching profile data:", err);
-        }
+    async function fetchProfile() {
+      try {
+        await axios.get(`http://localhost:8080/api/simple/banking/profile?customerId=${JSON.parse(customerId)}`).then(res => {
+          setName(res.data.firstName + " " + res.data.lastName)
+          setEmail(res.data.emailId)
+          setPhone(res.data.contact)
+          setAddress(res.data.address)
+          setAadhaar(res.data.aadharNumber)
+          setPan(res.data.panNumber)
+        })
+      } catch (err) {
+        console.log('Error fetching balance', err);
       }
-      fetchProfile();
     }
+    fetchProfile();
+  }
   }, []);
-  const handleEditToggle = () => setIsEditMode(!isEditMode);
+  const handleSave = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Authentication token is missing.");
+      return;
+    }
+    const updatedData = {
+      customerId,
+      firstName: name.split(" ")[0],
+      lastName: name.split(" ")[1] || "",
+      emailId: email,
+      contact: phone,
+      address,
+      panNumber: pan,
+      aadharNumber: aadhaar,
+    };
+    try {
+      const response = await axios.put(
+        "http://localhost:8080/api/simple/banking/editProfile",
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json", // Add Content-Type header
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert("Profile updated successfully!");
+        setIsEditMode(false);
+      } else {
+        alert(`Failed to update profile. Status: ${response.status}`);
+      }
+    } catch (err) {
+      console.error("Axios error:", err);
+      alert("Failed to update profile. Check console for details.");
+    }
+   };
+  const handleEditToggle = () => {
+    if (isEditMode) {
+      handleSave();
+    } else {
+      setIsEditMode(true);
+    }
+  };
   return (
     <div style={{ "top": "0" }}>
       <div style={{ background: "#fff" }}>
@@ -54,15 +95,9 @@ const Profile = () => {
         <SideMenu />
         <div className="main-contents">
           <div className="edit-button-container">
-            {isEditMode ? (
-              <button className="EditBtn" onClick={() => setIsEditMode(false)}>
-                Save
-              </button>
-            ) : (
-              <button className="EditBtn" onClick={handleEditToggle}>
-                Edit
-              </button>
-            )}
+            <button className="EditBtn" onClick={handleEditToggle}>
+              {isEditMode ? "Save" : "Edit"}
+            </button>
           </div>
           <div className="profile-field">
             {[
