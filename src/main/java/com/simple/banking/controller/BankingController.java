@@ -28,6 +28,13 @@ public class  BankingController {
         return customerService.register(customer);
     }
 
+    //EditProfile
+    @PutMapping("/editProfile")
+    public ResponseEntity<ApiResponse> editProfile(@Validated @RequestBody Customer customer) {
+        return customerService.editProfile(customer);
+    }
+    
+    
     //Customer Login
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> login(@RequestBody LoginRequestDTO loginRequestDTO) {
