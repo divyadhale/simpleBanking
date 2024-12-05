@@ -28,13 +28,13 @@ public class Customer {
     @NotNull(message = "Email is required.")
     @Column(unique = true)
     private String emailId;
-    @NotNull(message = "Password is required.")
+   
     private String password;
 
-    @NotNull(message = "PAN is required.")
+   
     @Pattern(regexp="[A-Z]{5}[0-9]{4}[A-Z]{1}",message = "PAN number is invalid.")
     private String panNumber;
-    @NotNull(message = "AAdhar is required.")
+   
     @Pattern(regexp="(^$|[0-9]{12})",message = "Aadhar is invalid.")
     private String aadharNumber;
     private String address;

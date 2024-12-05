@@ -61,7 +61,7 @@ public class CustomerService {
 		      user.setPanNumber(customer.getPanNumber());
 		      user.setEmailId(customer.getEmailId());
 		      user.setContact(customer.getContact());
-		      user.setPassword(customer.getPassword());
+		     
 		      
 		 	  customerRepository.save(user);
 	            ApiResponse response = new ApiResponse("success", HttpStatus.OK.value(), "Profile Update Successfully", user.getAccountNumber().toString());
