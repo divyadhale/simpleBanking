@@ -23,19 +23,12 @@ public class Customer {
     @NotNull(message = "Contact Number is required.")
     @Pattern(regexp="(^$|[0-9]{10})",message = "Contact is invalid.")
     private String contact;
-
     @Email
     @NotNull(message = "Email is required.")
     @Column(unique = true)
     private String emailId;
-   
     private String password;
-
-   
-    @Pattern(regexp="[A-Z]{5}[0-9]{4}[A-Z]{1}",message = "PAN number is invalid.")
     private String panNumber;
-   
-    @Pattern(regexp="(^$|[0-9]{12})",message = "Aadhar is invalid.")
     private String aadharNumber;
     private String address;
     @Column(columnDefinition="Decimal(10,2) default '0.00'")
