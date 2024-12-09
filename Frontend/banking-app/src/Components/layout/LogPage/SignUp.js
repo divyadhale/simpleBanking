@@ -15,6 +15,8 @@ function SignUpForm() {
     password: '',
     address: '',
     contact: '',
+    panNumber:'',
+    aadharNumber:''
   });
   // const [error, setError] = useState(null);
   // const [success, setSuccess] = useState(false);
@@ -136,7 +138,9 @@ function SignUpForm() {
               lastName: '',
               emailId: '',
               password: '',
-              address: ''
+              address: '',
+              aadharNumber:'',
+              panNumber:'',
             });
             Swal.fire({
               title: "Registration Successful",

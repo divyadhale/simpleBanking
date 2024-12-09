@@ -19,6 +19,7 @@ const Profile = () => {
   const [address, setAddress] = useState("");
   const [pan, setPan] = useState("");
   const [aadhaar, setAadhaar] = useState("");
+  const[password,setPassword]= useState("");
   useEffect(() => {
     const token = localStorage.getItem("token");
     const customerId = token ? atob(token) : undefined;
@@ -33,6 +34,7 @@ const Profile = () => {
           setAddress(res.data.address)
           setAadhaar(res.data.aadharNumber)
           setPan(res.data.panNumber)
+          setPassword(res.data.password)
         })
       } catch (err) {
         console.log('Error fetching balance', err);
@@ -48,7 +50,7 @@ const Profile = () => {
       return;
     }
     const updatedData = {
-      customerId,
+      accountNumber : customerId,
       firstName: name.split(" ")[0],
       lastName: name.split(" ")[1] || "",
       emailId: email,
@@ -56,8 +58,10 @@ const Profile = () => {
       address,
       panNumber: pan,
       aadharNumber: aadhaar,
+      password,
     };
     try {
+      console.log(updatedData,'Data');
       const response = await axios.put(
         "http://localhost:8080/api/simple/banking/editProfile",
         updatedData,
