@@ -14,9 +14,9 @@ function SignUpForm() {
     emailId: '',
     password: '',
     address: '',
-    aadharNumber: '',
-    panNumber: '',
     contact: '',
+    panNumber:'',
+    aadharNumber:''
   });
   // const [error, setError] = useState(null);
   // const [success, setSuccess] = useState(false);
@@ -84,28 +84,6 @@ function SignUpForm() {
         validMessages.address = "Address is valid.";
       }
     }
-    // PAN Card
-    if (name === "panNumber") {
-      if (!value.trim()) {
-        newErrors.panNumber = "PAN number is required.";
-      } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value)) {
-        newErrors.panNumber = "Invalid PAN format (e.g., ABCDE1234F).";
-      } else {
-        delete newErrors.panNumber;
-        validMessages.panNumber = "PAN number is valid.";
-      }
-    }
-    // Aadhaar Card
-    if (name === "aadharNumber") {
-      if (!value.trim()) {
-        newErrors.aadharNumber = "Aadhaar number is required.";
-      } else if (!/^\d{12}$/.test(value)) {
-        newErrors.aadharNumber = "Aadhaar number must be a 12-digit number.";
-      } else {
-        delete newErrors.aadharNumber;
-        validMessages.aadharNumber = "Aadhaar number is valid.";
-      }
-    }
     // Contact Number
     if (name === "contact") {
       if (!value.trim()) {
@@ -161,8 +139,8 @@ function SignUpForm() {
               emailId: '',
               password: '',
               address: '',
-              aadharNumber: '',
-              panNumber: ''
+              aadharNumber:'',
+              panNumber:'',
             });
             Swal.fire({
               title: "Registration Successful",
@@ -224,9 +202,7 @@ function SignUpForm() {
       lastName: '',
       emailId: '',
       password: '',
-      address: '',
-      aadharNumber: '',
-      panNumber: ''
+      address: ''
     });
   };
   const confirmCancel = () => {
@@ -298,24 +274,6 @@ function SignUpForm() {
           onChange={handleChange}
           error={errors.address}
           validationMessage={errors.address}
-        />
-        {/* PAN Number */}
-        <InputField
-          label="PAN Number"
-          name="panNumber"
-          value={formData.panNumber}
-          onChange={handleChange}
-          error={errors.panNumber}
-          validationMessage={errors.panNumber}
-        />
-        {/* Aadhaar Number */}
-        <InputField
-          label="Aadhaar Number"
-          name="aadharNumber"
-          value={formData.aadharNumber}
-          onChange={handleChange}
-          error={errors.aadharNumber}
-          validationMessage={errors.aadharNumber}
         />
         {/* Contact Number */}
         <InputField
