@@ -20,6 +20,20 @@ const Profile = () => {
   const [pan, setPan] = useState("");
   const [aadhaar, setAadhaar] = useState("");
   const[password,setPassword]= useState("");
+  const [errors, setErrors] = useState({});
+  const validateField = (label, value) => {
+    let error = "";
+    if (label === "Email Id" && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+      error = "Invalid email format";
+    } else if (label === "Mobile no" && !/^\d{10}$/.test(value)) {
+      error = "Mobile number must be 10 digits";
+    } else if (label === "Pan no" && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value)) {
+      error = "Invalid PAN format";
+    } else if (label === "Aadhaar no" && !/^\d{12}$/.test(value)) {
+      error = "Aadhaar number must be 12 digits";
+    }
+    setErrors((prev) => ({ ...prev, [label]: error }));
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     const customerId = token ? atob(token) : undefined;
@@ -117,11 +131,18 @@ const Profile = () => {
                 <div className="profile-label">{label}</div>
                 <div className="profile-value">
                   {isEditMode && isEditable ? (
+                    <div>
                     <input
-                      type="text"
-                      value={value}
-                      onChange={(e) => setValue(e.target.value)}
-                    />
+                                     type="text"
+                                     value={value}
+                                     onChange={(e) => {
+                                       setValue(e.target.value);
+                                       validateField(label, e.target.value);
+                                     }}
+                                     onBlur={() => validateField(label, value)}
+                                   />
+                                   {errors[label] && <div className="error-message">{errors[label]}</div>}
+                    </div>
                   ) : (
                     <span>{value}</span>
                   )}
