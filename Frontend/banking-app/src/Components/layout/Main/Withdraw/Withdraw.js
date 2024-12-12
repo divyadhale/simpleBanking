@@ -14,7 +14,7 @@ export default function Withdraw(){const navigate = useNavigate();
         }
     })
     return(
-        <>
+        <div style={{ "top": "0" }}>
             <div className='app'>
                 <Sidebar/>
                 <div className='main-content'>
@@ -22,6 +22,6 @@ export default function Withdraw(){const navigate = useNavigate();
                     <ContentMain/>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

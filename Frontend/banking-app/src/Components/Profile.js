@@ -124,7 +124,7 @@ const Profile = () => {
               { label: "Email Id", value: email, isEditable: true, setValue: setEmail },
               { label: "Mobile no", value: phone, isEditable: true, setValue: setPhone },
               { label: "Address", value: address, isEditable: true, setValue: setAddress },
-              { label: "Pan no", value: pan, isEditable: true, setValue: setPan },
+              { label: "Pan no", value: pan, isEditable: true, setValue: (value)=>setPan(value.toUpperCase()) },
               { label: "Aadhaar no", value: aadhaar, isEditable: true, setValue: setAadhaar },
             ].map(({ label, value, isEditable, setValue }, index) => (
               <div className="profile-row" key={index}>

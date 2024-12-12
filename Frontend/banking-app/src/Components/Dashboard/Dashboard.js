@@ -9,8 +9,8 @@ import NavBar2 from '../../common/Navbar2';
 import RegulatoryFooter from '../../common/RegulatoryFooter';
 
 const DashboardContainer = styled.div`
-  display: flex;
-  margin-top: 5.8em;
+   display: flex;
+  margin-bottom: 10em;
 `;
 
 const DashboardContent = styled.div`
@@ -33,8 +33,8 @@ const RightSidebar = styled.div`
 
 function Dashboard() {
   return (
-    <>
-      <div style={{ "position": "fixed", "top": "0", "zIndex": "3" }}>
+    <div style={{ "top": "0" }}>
+      <div style={{ background: "#fff" }}>
         <NavBar2 />
       </div>
       <DashboardContainer>
@@ -51,7 +51,7 @@ function Dashboard() {
         </DashboardContent>
       </DashboardContainer>
       <RegulatoryFooter />
-    </>
+    </div>
   );
 }
 

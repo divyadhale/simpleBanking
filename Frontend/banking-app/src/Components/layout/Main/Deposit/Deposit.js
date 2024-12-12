@@ -8,7 +8,6 @@ import SideMenu from '../../../Dashboard/SideMenu';
 
 const DepositContainer = styled.div`
   display: flex;
-  margin-top: 5.8em;
   margin-bottom: 10em;
 `
 
@@ -22,8 +21,8 @@ export default function Deposit() {
   })
 
   return (
-    <>
-      <div style={{ "position": "fixed", "top": "0", "zIndex": "3" }}>
+    <div style={{ "top": "0" }}>
+      <div style={{ background: "#fff" }}>
         <NavBar2 />
       </div>
       <DepositContainer>
@@ -34,6 +33,6 @@ export default function Deposit() {
         </div>
       </DepositContainer>
       <RegulatoryFooter />
-    </>
+    </div>
   )
 }
