@@ -15,7 +15,7 @@ export default function Homepage(){
         }
     })
     return(
-        <>
+        <div style={{ "top": "0" }}>
             <div className='homepage'>
                 <Sidebar/>
                 <div className='main-content'>
@@ -23,6 +23,6 @@ export default function Homepage(){
                     <ContentMain/>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

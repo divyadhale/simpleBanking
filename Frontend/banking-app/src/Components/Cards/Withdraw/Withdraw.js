@@ -13,7 +13,6 @@ import SideMenu from "../../Dashboard/SideMenu";
 
 const WithdrawContainer = styled.div`
   display: flex;
-  margin-top: 5.8em;
   margin-bottom: 10em;
 `;
 
@@ -45,31 +44,40 @@ export default function Withdraw() {
   const handleTransaction = async () => {
     try {
       setIsLoading(true);
-      await axios
-        .post("http://localhost:8080/api/simple/banking/doTransaction", {
-          customerId: JSON.parse(customerId),
-          code: receivedOtp
-        })
-        .then((resp) => {
-          if (resp) {
-            Swal.fire({
-              title: "Withdrawl Successful",
-              timer: 2000,
-              timerProgressBar: true,
-              willClose: () => {
-                clearInterval(timerInterval);
-              }
-            }).then((result) => {
-              if (
-                result.dismiss === Swal.DismissReason.timer ||
-                result.isConfirmed
-              ) {
-                navigate("/dashboard");
-              }
-            });
-          }
-        });
+      await axios.post("http://localhost:8080/api/simple/banking/doTransaction", {
+        customerId: JSON.parse(customerId),
+        code: receivedOtp,
+      });
+      Swal.fire({
+        title: "Withdrawl Successful",
+        timer: 2000,
+        timerProgressBar: true,
+        icon:"success"
+      }).then(() => {
+        navigate("/dashboard");
+      });
     } catch (error) {
+      if(error.response && error.response.data){
+        const errorMessage= error.response.data;
+        if(errorMessage==="Incorrect OTP"){
+          Swal.fire({
+            title: "Incorrect OTP",
+            text: "Please enter correct OTP again.",
+            timer: 2000,
+            timerProgressBar: true,
+            icon:"error",
+          });
+        }else if(errorMessage==="Otp Expired.Please try again"){
+          Swal.fire({
+            title: "OTP Expired",
+            text: "Please try again.",
+            timer: 2000,
+            timerProgressBar: true,
+            icon:"error",
+          });
+          cancelModal();
+        }
+      }
     } finally {
       setIsLoading(false);
     }
@@ -143,7 +151,7 @@ export default function Withdraw() {
           Loading...
         </div>
       )}
-      <div style={{ position: "fixed", top: "0", zIndex: "3" }}>
+      <div style={{ background: "#fff" }}>
         <NavBar2 />
       </div>
       <WithdrawContainer>
