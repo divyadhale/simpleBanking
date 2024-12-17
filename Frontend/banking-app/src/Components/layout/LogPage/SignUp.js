@@ -195,7 +195,7 @@ function SignUpForm() {
         })
       } catch (error) {
         Swal.fire({
-          title: "Something went wrong please try after sometime.",
+          title: error.response.data.message,
           timer: 2000,
           timerProgressBar: true,
           willClose: () => {
